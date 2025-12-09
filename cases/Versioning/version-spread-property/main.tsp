@@ -23,23 +23,16 @@ enum Versions {
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
   `2021-10-01-preview`,
 
-  /** 2024-10-01-preview version */
+  /** 2021-10-01-preview version */
   // @useDependency(Azure.ResourceManager.Versions.v1_0_Preview_1)
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
   `2024-10-01-preview`,
-
-  /** 2025-05-04-preview version */
-  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-  `2025-05-04-preview`,
 }
 
 /** A ContosoProviderHub resource */
 model Employee is TrackedResource<EmployeeProperties> {
   ...ResourceNameParameter<Employee>;
-
-  /** The managed service identities assigned to this resource. */
-  @added(Versions.`2025-05-04-preview`)
-  identity?: Azure.ResourceManager.CommonTypes.ManagedServiceIdentity;
+  ...ManagedServiceIdentityProperty;
 }
 
 /** Employee properties */

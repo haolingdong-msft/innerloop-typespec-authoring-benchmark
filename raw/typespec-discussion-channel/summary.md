@@ -94,6 +94,8 @@ All 159 questions across all 21 files have been successfully categorized accordi
 
 ## Complete Question List by Category
 
+**Legend:** 🎮 = Question includes TypeSpec playground example
+
 ### TypeSpec Validation (36 questions)
 
 - [Avocado Failing on PR](typespec_2025_05_22.md)
@@ -105,8 +107,8 @@ All 159 questions across all 21 files have been successfully categorized accordi
 - [Typespec Validation issue](typespec_2025_05_22.md)
 - [Visibility-sealed error while validating locally](typespec_2025_05_22.md)
 - [Why does the PR bot add the `WaitForARMFeedback` label when TypeSpec validation pipeline fails?](typespec_2025_05_22.md)
-- [Duplicate model definition errors on compilation with TypeSpec Compiler v1.0.0 - Microsoft.Mission](typespec_2025_06_26.md)
-- [Internal compiler error](typespec_2025_06_26.md)
+- [Duplicate model definition errors on compilation with TypeSpec Compiler v1.0.0 - Microsoft.Mission](typespec_2025_06_26.md) 🎮
+- [Internal compiler error](typespec_2025_06_26.md) 🎮
 - [SecurityDefinitionsStructure error on PR](typespec_2025_06_26.md)
 - [Swagger LintDiff failed](typespec_2025_06_26.md)
 - [TypeSpec Validation failed](typespec_2025_06_26.md)
@@ -141,7 +143,7 @@ All 159 questions across all 21 files have been successfully categorized accordi
 - [How to restrict importing typespec files in main based off of versions.](typespec_2025_05_22.md)
 - [Is there way to change property from required to optional?](typespec_2025_05_22.md)
 - [Model validation failures - Newer models introduced in new version adds the parent models in the older version.](typespec_2025_05_22.md)
-- [Proper Service Versioning](typespec_2025_05_22.md)
+- [Proper Service Versioning](typespec_2025_05_22.md) 🎮
 - [Setting default value for a union type for only some API versions](typespec_2025_05_22.md)
 - [Sharing models between data plane and control plane](typespec_2025_05_22.md)
 - [Breaking Change(Cross-Version) failure](typespec_2025_06_26.md)
@@ -151,22 +153,22 @@ All 159 questions across all 21 files have been successfully categorized accordi
 - [How to change the model to accommodate new decorators for validations](typespec_2025_06_26.md)
 - [Is adding new value to enum is considered a breaking change?](typespec_2025_06_26.md)
 - [Is it possible to make a field to be optional only on new api version?](typespec_2025_06_26.md)
-- [Need advice on how to change operation parameters on a breaking change](typespec_2025_06_26.md)
-- [relaxing a pattern across versions](typespec_2025_06_26.md)
+- [Need advice on how to change operation parameters on a breaking change](typespec_2025_06_26.md) 🎮
+- [relaxing a pattern across versions](typespec_2025_06_26.md) 🎮
 - [Avocado error after @renamedFrom on custom action route](typespec_2025_07_03.md)
-- [Can required fields have default values?](typespec_2025_07_03.md)
+- [Can required fields have default values?](typespec_2025_07_03.md) 🎮
 - [How to update any model without affecting old API versions](typespec_2025_07_03.md)
 - [Will changing the delete method on a tracked resource be a breaking change?](typespec_2025_07_03.md)
 - ["is referencing versioned type but is not versioned"](typespec_2025_07_17.md)
 - [TypeSpec Versioning Generic Question](typespec_2025_07_24.md)
-- [How to version a spread property (ManagedServiceIdentityProperty)?](typespec_2025_08_07.md)
+- [How to version a spread property (ManagedServiceIdentityProperty)?](typespec_2025_08_07.md) 🎮
 - [Modify/rename @resource(s)](typespec_2025_08_14.md)
-- [Changing Property to Optional with Default](typespec_2025_09_26.md)
+- [Changing Property to Optional with Default](typespec_2025_09_26.md) 🎮
 - [Can we reorder the API versions like this, and should we remove the older preview version?](typespec_2025_10_10.md)
 - [How to generate multiple inline allOfs (or equivalent)](typespec_2025_10_10.md)
 - [What decorator should be used in this case?](typespec_2025_10_10.md)
 - [Versioning question with new GA after preview](typespec_2025_10_24.md)
-- [Problems Introducing Versioned Name Pattern](typespec_2025_12_05.md)
+- [Problems Introducing Versioned Name Pattern](typespec_2025_12_05.md) 🎮
 
 ### SDK Generation (24 questions)
 
@@ -191,7 +193,7 @@ All 159 questions across all 21 files have been successfully categorized accordi
 - [URL Data type breaking for wss url in example](typespec_2025_08_14.md)
 - [How can I edit the "Overview" text associated with a published REST API generated from TypeSpec?](typespec_2025_09_12.md)
 - [SDK Validation steps are failing with not much helpful logs](typespec_2025_09_12.md)
-- [Observing unexpected behavior while generating json file from model definitions](typespec_2025_11_07.md)
+- [Observing unexpected behavior while generating json file from model definitions](typespec_2025_11_07.md) 🎮
 - [Typespec generating examples that with invalid values for fields like provisioning state](typespec_2025_11_07.md)
 - [JS SDK generation issue - ResourceUpdateModel and location](typespec_2025_11_28.md)
 
@@ -213,7 +215,7 @@ All 159 questions across all 21 files have been successfully categorized accordi
 - [Parameterizing @doc through interface value params](typespec_2025_07_03.md)
 - [Does typespec allow negative lookaheads in name validation?](typespec_2025_07_10.md)
 - [how to set readOnly for union](typespec_2025_07_17.md)
-- [Best replacement for char in TypeSpec?](typespec_2025_07_24.md)
+- [Best replacement for char in TypeSpec?](typespec_2025_07_24.md) 🎮
 - [Updating from `@typespec/compiler@^0.65.0` -> `1.2.0`. Changes to `@service` decorator.](typespec_2025_07_24.md)
 - [how do i use discriminated union](typespec_2025_10_10.md)
 - [Multiple default values](typespec_2025_10_10.md)
@@ -225,17 +227,17 @@ All 159 questions across all 21 files have been successfully categorized accordi
 - [Additional OKResponse](typespec_2025_05_22.md)
 - [Discrepancy in the original LRO response and Status Monitor Response](typespec_2025_05_22.md)
 - [How to customize "original-uri" in arm template?](typespec_2025_05_22.md)
-- [Need help in Adding final-state-schema for a single post action](typespec_2025_05_22.md)
+- [Need help in Adding final-state-schema for a single post action](typespec_2025_05_22.md) 🎮
 - [Non-resource long running operation](typespec_2025_05_22.md)
 - [Resource Action LRO response modelling](typespec_2025_05_22.md)
 - [What is `x-ms-long-running-operation-options` for LRO operation of data-plane when `emit-lro-options: none` in `@azure-tools/typespec-autorest`?](typespec_2025_05_22.md)
-- [Asynchronous resource delete](typespec_2025_06_26.md)
-- [Does it make sense for a put operation with Location header?](typespec_2025_07_03.md)
+- [Asynchronous resource delete](typespec_2025_06_26.md) 🎮
+- [Does it make sense for a put operation with Location header?](typespec_2025_07_03.md) 🎮
 - [Issue with LongRunningResourceCreateWithServiceProvidedName operation](typespec_2025_07_03.md)
 - [How to suppress 200 response code for a LongRunningOperation?](typespec_2025_08_07.md)
-- [Versioning the LRO headers](typespec_2025_10_10.md)
+- [Versioning the LRO headers](typespec_2025_10_10.md) 🎮
 - [Guidance on cross version breaking change for readonly and async operations in new api-versions](typespec_2025_11_14.md)
-- [ARM Async operation with custom operation](typespec_2025_11_21.md)
+- [ARM Async operation with custom operation](typespec_2025_11_21.md) 🎮
 
 ### TypeSpec Migration (11 questions)
 
@@ -257,12 +259,12 @@ All 159 questions across all 21 files have been successfully categorized accordi
 - [Is path case sensitive?](typespec_2025_05_22.md)
 - [Override contentType: "application/json" for ResourceCreateOrUpdate](typespec_2025_05_22.md)
 - [Update API definition in typespec-providerhub](typespec_2025_05_22.md)
-- [Upper case in action segment](typespec_2025_06_26.md)
-- [Operation Id update](typespec_2025_07_03.md)
+- [Upper case in action segment](typespec_2025_06_26.md) 🎮
+- [Operation Id update](typespec_2025_07_03.md) 🎮
 - [Define Proxy object with 200/202 Http response](typespec_2025_07_31.md)
 - [TypeSpec API Operations](typespec_2025_10_10.md)
 - [Quantum RP, add new filter to offering API](typespec_2025_11_07.md)
-- [Playground usage](typespec_2025_11_21.md)
+- [Playground usage](typespec_2025_11_21.md) 🎮
 
 ### Arm Resource Manager(ARM) Template (6 questions)
 
@@ -270,13 +272,13 @@ All 159 questions across all 21 files have been successfully categorized accordi
 - [Extend ResourceModelWithAllowedPropertySet](typespec_2025_05_22.md)
 - [Two kinds of extension resource](typespec_2025_06_26.md)
 - [Using namespaces and encountering duplicate-symbol error](typespec_2025_06_26.md)
-- [We cannot customize the Type for ResourceNameParameter?](typespec_2025_06_26.md)
+- [We cannot customize the Type for ResourceNameParameter?](typespec_2025_06_26.md) 🎮
 - [Location based extension resource off a tenant level resource](typespec_2025_07_17.md)
 
 ### Patch (5 questions)
 
 - [JSON merge-patch support in TypeSpec](typespec_2025_05_22.md)
-- [Guidelines to Implement Custom Patch](typespec_2025_07_17.md)
+- [Guidelines to Implement Custom Patch](typespec_2025_07_17.md) 🎮
 - [Allow property update only through PUT and not Patch](typespec_2025_11_21.md)
 - [ArmResourcePatchAsync & discriminator](typespec_2025_11_21.md)
 - [Moving from ArmCustomPatchSync to ArmResourcePatchSync for PATCH operations](typespec_2025_11_21.md)

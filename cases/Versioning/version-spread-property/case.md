@@ -1,0 +1,128 @@
+# How to version a spread property (ManagedServiceIdentityProperty)?
+
+**Category: Versioning**
+
+## question 
+I'm trying to add Managed Identity support and want to avoid a breaking change.
+ 
+However, adding `...Azure.ResourceManager.ManagedServiceIdentityProperty;` would update all my existing API versions and introduce a breaking change.
+ 
+That's the right way to introduce the MSI property so I can only add it in a new version of my model?
+ 
+If instead I'd directly add to my tracked resource `identity?: Foundations.ManagedServiceIdentity;` I get a warning about this not being valid in the resource envelope.
+
+And how without having to create an entirely separate model. What I want is to introduce the property in a new API version `2025-05-04-preview` only.
+
+## answer
+You can do it using an extension decorator [like this](https://azure.github.io/typespec-azure/playground/?options=%7B%22linterRuleSet%22%3A%7B%22extends%22%3A%5B%22%40azure-tools%2Ftypespec-azure-rulesets%2Fresource-manager%22%5D%7D%7D&c=aW1wb3J0ICJAdHlwZXNwZWMvaHR0cCI7CtIZcmVzdNUZdmVyc2lvbmluZ8wfYXp1cmUtdG9vbHMvyCstxhVjb3Jl3yvIK3Jlc291cmNlLW1hbmFnZXIiOwoKdXNpbmcgSHR0cDvHDFJlc3TIDFbpAI7IEkHESi5Db3JlzhJSx1xNxls7CgovKiogQ29udG9zb8RUxR4gUHJvdmlkZXIg5gCDbWVudCBBUEkuICovCkBhcm3IIE5hbWVzcGFjZQpAc2VydmljZSgjeyB0aXRsZTogIsdXyC1IdWJDbGllbnQiIH0pCkDnAUNlZCjnAL9zKQpuyFAgTWljcm9zb2Z0LtJG7wC2QVBJIMdNc%2BQAoWVudW3oARNzIHsKICDELjIwMjEtMTAtMDEtcHJldmlld8g1xDQgIEB1c2VEZXBlbmRlbmN5KPUBLy7IVi52MV8wX1DGSF8xKcRAYXJtQ29tbW9uVOQBz8cq10jLKctUNcRIYPIAqWAsCv8Axf8Axf8Axf8Axf8AxfgAxTTxAMV95gG4QegBuusB0yDoAvXkAMhtb2RlbCBFbXBsb3llZSBpcyBUcmFja2Vk6ACCPMgcUHJvcGVydGllcz7lAekuLukApuQCm1BhcmFtZXRlcskxPjvGJuYAxGRT5gK1SWRlbnRpdHnHT3k75ACrQEBhZGRlZCjIOy5pxyYs6QJdLvQA6CnnAp%2FIOCBwxlZpZeUCnu4A3cdyxBzoAqlBZ2Ugb2YgZcg%2F5QHZYWdlPzogaW50MzI76AINQ2l0edIqY2l0eT86IHN0cuUED8csUHJvZmls01lAZW5jb2RlKCJiYXNlNjR1cmwi5AHBcMYwPzogYnl0ZXPJSFRoZSBzdGF0dXPES3RoZSBsYXN0IOQAxWF0aW9u5QQiICBAdmlzaWJpbGl0eShMaWZlY3ljbOQCQWFkx13EIOUEsVN0YXTEZ%2BUCDMwU5QGEyHPMMuUAgOUAymHpAjbFd0Bscm%2FEO3VzCnVu5AMT0VTlAWTmARrpA1PEX8hHIGNyZcQncmVxdWVzdCBoYXMgYmVlbiBhY2NlcHRlZMRnICBBxw46ICLICyLWUGnEQOQAtOkAwchE7ACcOiAizA%2FaTHVwZGF0xE%2FFQ1XHDjogIsgLyjvpBcvpAMTmANxk5wGiU3VjY2VlZOUAxckM0z%2FFNuQBTWZhaWzJPkbFDTogIsYJ3Dh3YXMgY2FuY2XKPkPHD%2BQGI8cL%2FwFAIGRlbGXpAYBExA3mAPnICyLpBF7pA3dtb3bqAcrpA3lNb3ZlUscV6ANyxHNtb3bEaGZyb20gbG9j5gC8xW7EE%2FEDUMszdG%2FPMXRvyi%2F3AJVzcG9uc%2BsE7OYAlscW7ACX7gNsxT7FZMZ85gLuzW5pbnRlcmbkB0JP6AOUcyBleHRlbmRz9ggELsspe%2BQE%2BGFybcgjyhvLWegAzeYEs2dldOQBp0HKNeQD5%2B4FceYCe09y5QKn5QHWyy9Dxx1SZXBsYWNlQXN5bmPOP%2BUC98g3Q3VzdG9tUGF0Y2hTxCoKICAg6QCTLMUO9gDnRm91buQDJuQFuMgc5gCRTeQBhMZJ0EvKEOoFqsUZPgogIOUAneYCmu8A1OUCl2VXaXRob3V0T2vzANRsaXN0QnnIMEdyb3Vwz0RMxSJQYXJlbnTUPFN1YnNjcmlw5QJ5xjvGM8wZzDnoBmAgc2FtcGzrA2ZhY8VEdGhhdOYCY%2BkGI3RvIGRpZmZl5ACE7wLmxSnuALJBxUjlAZbIdyzsA3HIDeYC6PMAkkhFQUTqBkzEfmNoZWNr6gCqZXhpc3RlbuYIJyDGHkXJFO8CWM0d7AEJfQo%3D&e=%40azure-tools%2Ftypespec-autorest&vs=%7B%7D):
+```
+/** Contoso Resource Provider management API. */
+@armProviderNamespace
+@service(#{ title: "ContosoProviderHubClient" })
+@versioned(Versions)
+namespace Microsoft.ContosoProviderHub;
+
+/** Contoso API versions */
+enum Versions {
+  /** 2021-10-01-preview version */
+  @useDependency(Azure.ResourceManager.Versions.v1_0_Preview_1)
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
+  `2021-10-01-preview`,
+
+  /** 2021-10-01-preview version */
+  @useDependency(Azure.ResourceManager.Versions.v1_0_Preview_1)
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
+  `2024-10-01-preview`,
+}
+
+/** A ContosoProviderHub resource */
+model Employee is TrackedResource<EmployeeProperties> {
+  ...ResourceNameParameter<Employee>;
+  ...ManagedServiceIdentityProperty;
+}
+
+@@added(Employee.identity, Versions.`2024-10-01-preview`);
+
+/** Employee properties */
+model EmployeeProperties {
+  /** Age of employee */
+  age?: int32;
+
+  /** City of employee */
+  city?: string;
+
+  /** Profile of employee */
+  @encode("base64url")
+  profile?: bytes;
+
+  /** The status of the last operation. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+/** The provisioning state of a resource. */
+@lroStatus
+union ProvisioningState {
+  string,
+
+  /** The resource create request has been accepted */
+  Accepted: "Accepted",
+
+  /** The resource is being provisioned */
+  Provisioning: "Provisioning",
+
+  /** The resource is updating */
+  Updating: "Updating",
+
+  /** Resource has been created. */
+  Succeeded: "Succeeded",
+
+  /** Resource creation failed. */
+  Failed: "Failed",
+
+  /** Resource creation was canceled. */
+  Canceled: "Canceled",
+
+  /** The resource is being deleted */
+  Deleting: "Deleting",
+}
+
+/** Employee move request */
+model MoveRequest {
+  /** The moving from location */
+  from: string;
+
+  /** The moving to location */
+  to: string;
+}
+
+/** Employee move response */
+model MoveResponse {
+  /** The status of the move */
+  movingStatus: string;
+}
+
+interface Operations extends Azure.ResourceManager.Operations {}
+
+@armResourceOperations
+interface Employees {
+  get is ArmResourceRead<Employee>;
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<Employee>;
+  update is ArmCustomPatchSync<
+    Employee,
+    Azure.ResourceManager.Foundations.ResourceUpdateModel<
+      Employee,
+      EmployeeProperties
+    >
+  >;
+  delete is ArmResourceDeleteWithoutOkAsync<Employee>;
+  listByResourceGroup is ArmResourceListByParent<Employee>;
+  listBySubscription is ArmListBySubscription<Employee>;
+
+  /** A sample resource action that move employee to different location */
+  move is ArmResourceActionSync<Employee, MoveRequest, MoveResponse>;
+
+  /** A sample HEAD operation to check resource existence */
+  checkExistence is ArmResourceCheckExistence<Employee>;
+}
+```

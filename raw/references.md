@@ -1,0 +1,2 @@
+- TypeSpec discussion channel data: https://ms.portal.azure.com/#view/Microsoft_Azure_Storage/ContainerMenuBlade/~/overview/storageAccountId/%2Fsubscriptions%2Fa18897a6-7e44-457d-9260-f2854c0aca42%2FresourceGroups%2Fazure-sdk-qa-bot%2Fproviders%2FMicrosoft.Storage%2FstorageAccounts%2Fazuresdkqabotstorage/path/evaluation-dataset/etag/%220x8DDEF6EC73F0C18%22/defaultId//publicAccessVal/None
+- QA bot intention categories: https://github.com/Azure/azure-sdk-tools/blob/main/tools/sdk-ai-bots/azure-sdk-qa-bot-backend/service/prompt/typespec/intention.md

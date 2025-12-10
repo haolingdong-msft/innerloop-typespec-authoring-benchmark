@@ -41,17 +41,13 @@ This folder contains categorized TypeSpec discussion questions from May 2025 to 
 
 | Category | Question Count | Percentage |
 |----------|----------------|------------|
-| TypeSpec Validation | 36 | 22.0% |
-| Versioning | 32 | 19.5% |
-| SDK Generation | 24 | 14.6% |
-| Decorators | 22 | 13.4% |
-| Long Running Operation(LRO) | 14 | 8.5% |
-| TypeSpec Migration | 12 | 7.3% |
-| Operations | 10 | 6.1% |
-| Arm Resource Manager(ARM) Template | 6 | 3.7% |
-| Patch | 5 | 3.0% |
-| Paging | 3 | 1.8% |
-| **Total** | **164** | **100%** |
+| Versioning | 32 | 19.5% | 4
+| Arm Resource Manager(ARM) Template | 6 | 3.7% |3
+| Long Running Operation(LRO) | 14 | 8.5% | 3
+| Decorators | 22 | 13.4% | 2/3
+| Operations | 10 | 6.1% | 1
+| Patch | 5 | 3.0% | 1
+| Paging | 3 | 1.8% | 1
 
 ---
 

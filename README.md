@@ -19,3 +19,18 @@ innerloop-typespec-authoring-benchmark/
     └── typespec-discussion-channel/ # Discussion channel archives
         └── typespec_*.md          # Weekly discussion snapshots
 ```
+
+
+## Case Category
+
+| Category | category code |
+|----------|----------------|
+| Versioning | 001 |
+| Arm Resource Manager(ARM) Template | 002 |
+| Long Running Operation(LRO) | 003 |
+| Decorators | 004 |
+| Operations | 005 |
+| Patch | 006 |
+| Paging | 007 |
+
+Test case name conversion: `<category-code><case-number>-<case name>`

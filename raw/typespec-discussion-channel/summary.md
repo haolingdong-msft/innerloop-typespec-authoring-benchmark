@@ -96,45 +96,6 @@ All 159 questions across all 21 files have been successfully categorized accordi
 
 **Legend:** 🎮 = Question includes TypeSpec playground example
 
-### TypeSpec Validation (36 questions)
-
-- [Avocado Failing on PR](typespec_2025_05_22.md)
-- [How to properly update the TypeSpec environment?](typespec_2025_05_22.md)
-- [Output folder 'ContentUnderstanding' appears to contain TypeSpec-generated swagger files, not generated from the current TypeSpec sources. Perhaps you deleted a version from your TypeSpec, but didn't delete the associated swaggers?](typespec_2025_05_22.md)
-- [SdkTspConfigValidation failures for JS dataplane code generation](typespec_2025_05_22.md)
-- [TSP Install fails with below error](typespec_2025_05_22.md)
-- [Typespec Validation Failing on PR due to `typespec-go` configuration missing](typespec_2025_05_22.md)
-- [Typespec Validation issue](typespec_2025_05_22.md)
-- [Visibility-sealed error while validating locally](typespec_2025_05_22.md)
-- [Why does the PR bot add the `WaitForARMFeedback` label when TypeSpec validation pipeline fails?](typespec_2025_05_22.md)
-- [Duplicate model definition errors on compilation with TypeSpec Compiler v1.0.0 - Microsoft.Mission](typespec_2025_06_26.md) 🎮
-- [Internal compiler error](typespec_2025_06_26.md) 🎮
-- [SecurityDefinitionsStructure error on PR](typespec_2025_06_26.md)
-- [Swagger LintDiff failed](typespec_2025_06_26.md)
-- [TypeSpec Validation failed](typespec_2025_06_26.md)
-- [Typespec Validation required check](typespec_2025_06_26.md)
-- [Untitled](typespec_2025_06_26.md)
-- [ARM PR Typespec validation - GitHub CI fails but succeeds locally](typespec_2025_07_03.md)
-- [Need help with PR checks](typespec_2025_07_03.md)
-- [having trouble with examples not matching @pattern rules in github actions](typespec_2025_07_17.md)
-- [PR TypeSpec validation fails with Failed to find "Failed to find "options.@azure-tools/](typespec_2025_07_24.md)
-- [Swagger LintDiff - Analyze Code failing in PR](typespec_2025_07_24.md)
-- [TypeSpec Avocado failing even with labels tag](typespec_2025_07_24.md)
-- [Looking for examples on running TypeSpec in ADO Pipelines](typespec_2025_07_31.md)
-- [TypeSpec Validation error](typespec_2025_07_31.md)
-- [Builds failing, assistance requested](typespec_2025_08_14.md)
-- [Looking for someone to suppress CI failures https://github.com/Azure/azure-rest-api-specs/pull/36221](typespec_2025_08_14.md)
-- [Swagger LintDiff Suppression via TypeSpec](typespec_2025_09_12.md)
-- [Design question about suppression rules](typespec_2025_09_19.md)
-- [Model validations are failing although am referring from common-types](typespec_2025_09_19.md)
-- [Swagger LintDiff validation for certain models](typespec_2025_09_19.md)
-- [Hi team, could someone please help grant me permission to view the workflow for my Azure REST API PR?](typespec_2025_10_10.md)
-- [CI Failure – Swagger LintDiff](typespec_2025_10_17.md)
-- [Many Swagger ModelValidation Error:　XMS_EXAMPLE_NOTFOUND_ERROR](typespec_2025_10_17.md)
-- [azure-rest-api-specs CI Swagger ModelValidation ：xxx is not a valid JSON Schema](typespec_2025_10_24.md)
-- [Tsp Compile Appears to Generate Wrong Path to CommonTypes](typespec_2025_10_31.md)
-- [Error: deleted a version from your TypeSpec, but didn't delete the associated swaggers?](typespec_2025_12_05.md)
-
 ### Versioning (32 questions)
 
 - [Default value starting from a specific API version?](typespec_2025_05_22.md)
@@ -169,33 +130,6 @@ All 159 questions across all 21 files have been successfully categorized accordi
 - [What decorator should be used in this case?](typespec_2025_10_10.md)
 - [Versioning question with new GA after preview](typespec_2025_10_24.md)
 - [Problems Introducing Versioned Name Pattern](typespec_2025_12_05.md) 🎮
-
-### SDK Generation (24 questions)
-
-- [Does TypeSpec support example generation for new added versions?](typespec_2025_05_22.md)
-- [Duplicate Example files for Typespec and other for Swagger. By design?](typespec_2025_05_22.md)
-- [Folder structure recommendation for typespec.](typespec_2025_05_22.md)
-- [How to make an interface internal ?](typespec_2025_05_22.md)
-- [Namespace when not specified?](typespec_2025_05_22.md)
-- [Type Spec review for Data plane API specs](typespec_2025_05_22.md)
-- [Typespec -> Autorest generation : multiple specs per service](typespec_2025_05_22.md)
-- [Examples generation](typespec_2025_06_26.md)
-- [Missing APIs in default tag error for typespec conversion PR](typespec_2025_06_26.md)
-- [Oav generate-examples failed](typespec_2025_06_26.md)
-- [Question regarding extendable union types](typespec_2025_06_26.md)
-- [SDK Generation failure](typespec_2025_06_26.md)
-- [SDK Validation failing for Python](typespec_2025_07_03.md)
-- [Is it so bad to introduce named types to replace unnamed ones?](typespec_2025_07_10.md)
-- [Resource Provider Implementation - Generating Models from typespec](typespec_2025_07_17.md)
-- [is sdk generation required for private preview?](typespec_2025_07_24.md)
-- [Generating Examples in typespec/swagger](typespec_2025_07_31.md)
-- [How to create an Example for a typespec model?](typespec_2025_08_07.md)
-- [URL Data type breaking for wss url in example](typespec_2025_08_14.md)
-- [How can I edit the "Overview" text associated with a published REST API generated from TypeSpec?](typespec_2025_09_12.md)
-- [SDK Validation steps are failing with not much helpful logs](typespec_2025_09_12.md)
-- [Observing unexpected behavior while generating json file from model definitions](typespec_2025_11_07.md) 🎮
-- [Typespec generating examples that with invalid values for fields like provisioning state](typespec_2025_11_07.md)
-- [JS SDK generation issue - ResourceUpdateModel and location](typespec_2025_11_28.md)
 
 ### Decorators (22 questions)
 

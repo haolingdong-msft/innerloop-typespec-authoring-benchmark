@@ -1,5 +1,5 @@
 
-# CASE 0-0
+# CASE 001001-version-spread-property
 
 ## Prompts
 
@@ -7,7 +7,7 @@ Adding `...Azure.ResourceManager.ManagedServiceIdentityProperty;` would update a
 
 ### Input context
 
-<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Versioning/version-spread-property/main.tsp>
+<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Versioning/version-spread-property/tsp/main.tsp>
 
 ```
 import "@typespec/http";

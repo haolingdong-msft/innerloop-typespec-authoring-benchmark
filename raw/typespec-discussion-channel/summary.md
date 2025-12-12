@@ -94,7 +94,7 @@ All 159 questions across all 21 files have been successfully categorized accordi
 
 ### Versioning (32 questions)
 
-- [Default value starting from a specific API version?](typespec_2025_05_22.md)
+- [Default value starting from a specific API version?](typespec_2025_05_22.md) (selected)
 - [Description changes across versions?](typespec_2025_05_22.md)
 - [First experience of TSP ApiVersion introduction - passed all CI checks, what's next?](typespec_2025_05_22.md)
 - [How to restrict importing typespec files in main based off of versions.](typespec_2025_05_22.md)

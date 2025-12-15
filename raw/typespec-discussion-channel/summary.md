@@ -95,10 +95,10 @@ All 159 questions across all 21 files have been successfully categorized accordi
 ### Versioning (32 questions)
 
 - [Default value starting from a specific API version?](typespec_2025_05_22.md) (selected)
-- [Description changes across versions?](typespec_2025_05_22.md)
-- [First experience of TSP ApiVersion introduction - passed all CI checks, what's next?](typespec_2025_05_22.md)
-- [How to restrict importing typespec files in main based off of versions.](typespec_2025_05_22.md)
-- [Is there way to change property from required to optional?](typespec_2025_05_22.md)
+- [Description changes across versions?](typespec_2025_05_22.md) (ignore)
+- [First experience of TSP ApiVersion introduction - passed all CI checks, what's next?](typespec_2025_05_22.md) (ignore)
+- [How to restrict importing typespec files in main based off of versions.](typespec_2025_05_22.md) (ignore, general agent supported)
+- [Is there way to change property from required to optional?](typespec_2025_05_22.md) (selected)
 - [Model validation failures - Newer models introduced in new version adds the parent models in the older version.](typespec_2025_05_22.md)
 - [Proper Service Versioning](typespec_2025_05_22.md) 🎮
 - [Setting default value for a union type for only some API versions](typespec_2025_05_22.md)

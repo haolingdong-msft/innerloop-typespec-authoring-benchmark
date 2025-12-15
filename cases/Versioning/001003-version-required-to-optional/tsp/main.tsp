@@ -1,14 +1,3 @@
-# CASE 001002-version-default-value
-
-## prompt
-
-add a default value `21` for property age in model EmployeeProperties from a api version say 2025-11-01
-
-### Input Context
-
-<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Versioning/version-spread-property/tsp/main.tsp>
-
-```tsp
 import "@typespec/rest";
 import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
@@ -44,7 +33,7 @@ enum Versions {
 /** Employee properties */
 model EmployeeProperties {
   /** Age of employee */
-  age?: int32;
+  age: int32;
 
   /** City of employee */
   city?: string;
@@ -77,31 +66,3 @@ union ProvisioningState {
 
   string,
 }
-```
-
-## answer
-
-```tsp
-/** Employee properties */
-model EmployeeProperties {
-  /** Age of employee */
-  @typeChangedFrom(Versions.`2025-05-04-preview`, int32)
-  @madeOptional
-  age?: int32 = 21;
-
-  /** City of employee */
-  city?: string;
-
-  /** Profile of employee */
-  @encode("base64url")
-  profile?: bytes;
-
-  /** The status of the last operation. */
-  @visibility(Lifecycle.Read)
-  provisioningState?: ProvisioningState;
-}
-```
-
-# Real case reference
-
-[Default value starting from a specific API version?](https://teams.microsoft.com/l/message/19:906c1efbbec54dc8949ac736633e6bdf@thread.skype/1744048351737?tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47&groupId=3e17dcb0-4257-4a30-b843-77f47f1d4121&parentMessageId=1744048351737&teamName=Azure%20SDK&channelName=TypeSpec%20Discussion&createdTime=1744048351737)

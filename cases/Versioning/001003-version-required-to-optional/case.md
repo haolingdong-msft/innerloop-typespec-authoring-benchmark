@@ -1,12 +1,10 @@
-# CASE 001002-version-default-value
+# CASE 001003-version-required-to-optional
 
 ## prompt
 
-add a default value `21` for property age in model EmployeeProperties from a api version say 2025-11-01
+change the property age of EmployeeProperties from required to optional for new api version 2025-05-04-preview
 
 ### Input Context
-
-<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Versioning/version-spread-property/tsp/main.tsp>
 
 ```tsp
 import "@typespec/rest";
@@ -77,6 +75,7 @@ union ProvisioningState {
 
   string,
 }
+
 ```
 
 ## answer
@@ -85,9 +84,8 @@ union ProvisioningState {
 /** Employee properties */
 model EmployeeProperties {
   /** Age of employee */
-  @typeChangedFrom(Versions.`2025-05-04-preview`, int32)
-  @madeOptional
-  age?: int32 = 21;
+  @madeOptional(Microsoft.Widget.Versions.`2025-05-04-preview`)
+  age?: int32;
 
   /** City of employee */
   city?: string;
@@ -101,7 +99,3 @@ model EmployeeProperties {
   provisioningState?: ProvisioningState;
 }
 ```
-
-# Real case reference
-
-[Default value starting from a specific API version?](https://teams.microsoft.com/l/message/19:906c1efbbec54dc8949ac736633e6bdf@thread.skype/1744048351737?tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47&groupId=3e17dcb0-4257-4a30-b843-77f47f1d4121&parentMessageId=1744048351737&teamName=Azure%20SDK&channelName=TypeSpec%20Discussion&createdTime=1744048351737)

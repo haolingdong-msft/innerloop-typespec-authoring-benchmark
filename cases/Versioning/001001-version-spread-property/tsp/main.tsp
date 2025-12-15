@@ -27,6 +27,11 @@ enum Versions {
   // @useDependency(Azure.ResourceManager.Versions.v1_0_Preview_1)
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
   `2024-10-01-preview`,
+
+  /** 2025-05-04-preview version */
+  // @useDependency(Azure.ResourceManager.Versions.v1_0_Preview_1)
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
+  `2025-05-04-preview`,
 }
 
 /** A ContosoProviderHub resource */

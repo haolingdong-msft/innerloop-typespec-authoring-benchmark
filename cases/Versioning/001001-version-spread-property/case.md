@@ -3,13 +3,13 @@
 
 ## Prompts
 
-Adding `...Azure.ResourceManager.ManagedServiceIdentityProperty;` would update all my existing API versions and introduce a breaking change. I want is to introduce the property in a new API version 2025-05-04-preview only.
+I added `...Azure.ResourceManager.ManagedServiceIdentityProperty;` which update all my existing API versions and introduce a breaking change. I want is to introduce the properties of the spread model '...ManagedServiceIdentityProperty' in a new API version 2025-05-04-preview only.
 
 ### Input context
 
 <https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Versioning/version-spread-property/tsp/main.tsp>
 
-```
+```tsp
 import "@typespec/http";
 import "@typespec/rest";
 import "@typespec/versioning";

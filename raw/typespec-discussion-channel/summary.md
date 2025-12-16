@@ -157,7 +157,7 @@ All 159 questions across all 21 files have been successfully categorized accordi
 - [Additional OKResponse](typespec_2025_05_22.md)
 - [Discrepancy in the original LRO response and Status Monitor Response](typespec_2025_05_22.md)
 - [How to customize "original-uri" in arm template?](typespec_2025_05_22.md)
-- [Need help in Adding final-state-schema for a single post action](typespec_2025_05_22.md) 🎮
+- [Need help in Adding final-state-schema for a single post action](typespec_2025_05_22.md) 🎮 (a very strange case)
 - [Non-resource long running operation](typespec_2025_05_22.md)
 - [Resource Action LRO response modelling](typespec_2025_05_22.md)
 - [What is `x-ms-long-running-operation-options` for LRO operation of data-plane when `emit-lro-options: none` in `@azure-tools/typespec-autorest`?](typespec_2025_05_22.md)
@@ -167,7 +167,7 @@ All 159 questions across all 21 files have been successfully categorized accordi
 - [How to suppress 200 response code for a LongRunningOperation?](typespec_2025_08_07.md)
 - [Versioning the LRO headers](typespec_2025_10_10.md) 🎮
 - [Guidance on cross version breaking change for readonly and async operations in new api-versions](typespec_2025_11_14.md)
-- [ARM Async operation with custom operation](typespec_2025_11_21.md) 🎮
+- [ARM Async operation with custom operation](typespec_2025_11_21.md) 🎮 (answer is using legacy)
 
 ### TypeSpec Migration (11 questions)
 

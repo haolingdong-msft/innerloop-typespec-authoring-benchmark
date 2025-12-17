@@ -34,10 +34,9 @@ enum Versions {
   `2025-05-04-preview`,
 }
 
-/** A ContosoProviderHub resource */
+/** Employee resource */
 model Employee is TrackedResource<EmployeeProperties> {
   ...ResourceNameParameter<Employee>;
-  ...ManagedServiceIdentityProperty;
 }
 
 /** Employee properties */
@@ -57,13 +56,10 @@ model EmployeeProperties {
   provisioningState?: ProvisioningState;
 }
 
-/** The provisioning state of a resource. */
+/** The resource provisioning state. */
 @lroStatus
 union ProvisioningState {
-  string,
-
-  /** The resource create request has been accepted */
-  Accepted: "Accepted",
+  ResourceProvisioningState,
 
   /** The resource is being provisioned */
   Provisioning: "Provisioning",
@@ -71,54 +67,21 @@ union ProvisioningState {
   /** The resource is updating */
   Updating: "Updating",
 
-  /** Resource has been created. */
-  Succeeded: "Succeeded",
-
-  /** Resource creation failed. */
-  Failed: "Failed",
-
-  /** Resource creation was canceled. */
-  Canceled: "Canceled",
-
   /** The resource is being deleted */
   Deleting: "Deleting",
+
+  /** The resource create request has been accepted */
+  Accepted: "Accepted",
+
+  string,
 }
-
-/** Employee move request */
-model MoveRequest {
-  /** The moving from location */
-  from: string;
-
-  /** The moving to location */
-  to: string;
-}
-
-/** Employee move response */
-model MoveResponse {
-  /** The status of the move */
-  movingStatus: string;
-}
-
-interface Operations extends Azure.ResourceManager.Operations {}
 
 @armResourceOperations
 interface Employees {
   get is ArmResourceRead<Employee>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<Employee>;
-  update is ArmCustomPatchSync<
-    Employee,
-    Azure.ResourceManager.Foundations.ResourceUpdateModel<
-      Employee,
-      EmployeeProperties
-    >
-  >;
+  update is ArmResourcePatchSync<Employee, EmployeeProperties>;
   delete is ArmResourceDeleteWithoutOkAsync<Employee>;
   listByResourceGroup is ArmResourceListByParent<Employee>;
   listBySubscription is ArmListBySubscription<Employee>;
-
-  /** A sample resource action that move employee to different location */
-  move is ArmResourceActionSync<Employee, MoveRequest, MoveResponse>;
-
-  /** A sample HEAD operation to check resource existence */
-  checkExistence is ArmResourceCheckExistence<Employee>;
 }

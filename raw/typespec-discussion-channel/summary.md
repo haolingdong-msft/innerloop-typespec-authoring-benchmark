@@ -95,14 +95,14 @@ All 159 questions across all 21 files have been successfully categorized accordi
 ### Versioning (32 questions)
 
 - [Default value starting from a specific API version?](typespec_2025_05_22.md) (selected)
-- [Description changes across versions?](typespec_2025_05_22.md)
-- [First experience of TSP ApiVersion introduction - passed all CI checks, what's next?](typespec_2025_05_22.md)
-- [How to restrict importing typespec files in main based off of versions.](typespec_2025_05_22.md)
-- [Is there way to change property from required to optional?](typespec_2025_05_22.md)
-- [Model validation failures - Newer models introduced in new version adds the parent models in the older version.](typespec_2025_05_22.md)
-- [Proper Service Versioning](typespec_2025_05_22.md) 🎮
-- [Setting default value for a union type for only some API versions](typespec_2025_05_22.md)
-- [Sharing models between data plane and control plane](typespec_2025_05_22.md)
+- [Description changes across versions?](typespec_2025_05_22.md) (ignore)
+- [First experience of TSP ApiVersion introduction - passed all CI checks, what's next?](typespec_2025_05_22.md) (ignore)
+- [How to restrict importing typespec files in main based off of versions.](typespec_2025_05_22.md) (ignore, general agent supported)
+- [Is there way to change property from required to optional?](typespec_2025_05_22.md) (selected)
+- [Model validation failures - Newer models introduced in new version adds the parent models in the older version.](typespec_2025_05_22.md) (ignore)
+- [Proper Service Versioning](typespec_2025_05_22.md) 🎮 (ignore)
+- [Setting default value for a union type for only some API versions](typespec_2025_05_22.md)(ignore)
+- [Sharing models between data plane and control plane](typespec_2025_05_22.md)(ignore)
 - [Breaking Change(Cross-Version) failure](typespec_2025_06_26.md)
 - [Can I have different Name Regex for ARM Resource for different api versions?](typespec_2025_06_26.md)
 - [Handling multiple API versions using typespec](typespec_2025_06_26.md)
@@ -118,7 +118,7 @@ All 159 questions across all 21 files have been successfully categorized accordi
 - [Will changing the delete method on a tracked resource be a breaking change?](typespec_2025_07_03.md)
 - ["is referencing versioned type but is not versioned"](typespec_2025_07_17.md)
 - [TypeSpec Versioning Generic Question](typespec_2025_07_24.md)
-- [How to version a spread property (ManagedServiceIdentityProperty)?](typespec_2025_08_07.md) 🎮
+- [How to version a spread property (ManagedServiceIdentityProperty)?](typespec_2025_08_07.md) 🎮 (selected)
 - [Modify/rename @resource(s)](typespec_2025_08_14.md)
 - [Changing Property to Optional with Default](typespec_2025_09_26.md) 🎮
 - [Can we reorder the API versions like this, and should we remove the older preview version?](typespec_2025_10_10.md)
@@ -157,7 +157,7 @@ All 159 questions across all 21 files have been successfully categorized accordi
 - [Additional OKResponse](typespec_2025_05_22.md)
 - [Discrepancy in the original LRO response and Status Monitor Response](typespec_2025_05_22.md)
 - [How to customize "original-uri" in arm template?](typespec_2025_05_22.md)
-- [Need help in Adding final-state-schema for a single post action](typespec_2025_05_22.md) 🎮
+- [Need help in Adding final-state-schema for a single post action](typespec_2025_05_22.md) 🎮 (a very strange case)
 - [Non-resource long running operation](typespec_2025_05_22.md)
 - [Resource Action LRO response modelling](typespec_2025_05_22.md)
 - [What is `x-ms-long-running-operation-options` for LRO operation of data-plane when `emit-lro-options: none` in `@azure-tools/typespec-autorest`?](typespec_2025_05_22.md)
@@ -167,7 +167,7 @@ All 159 questions across all 21 files have been successfully categorized accordi
 - [How to suppress 200 response code for a LongRunningOperation?](typespec_2025_08_07.md)
 - [Versioning the LRO headers](typespec_2025_10_10.md) 🎮
 - [Guidance on cross version breaking change for readonly and async operations in new api-versions](typespec_2025_11_14.md)
-- [ARM Async operation with custom operation](typespec_2025_11_21.md) 🎮
+- [ARM Async operation with custom operation](typespec_2025_11_21.md) 🎮 (answer is using legacy)
 
 ### TypeSpec Migration (11 questions)
 
@@ -198,12 +198,12 @@ All 159 questions across all 21 files have been successfully categorized accordi
 
 ### Arm Resource Manager(ARM) Template (6 questions)
 
-- [Annotate same model with SubscriptionLocationResource and ResourceGroupLocationResource](typespec_2025_05_22.md)
-- [Extend ResourceModelWithAllowedPropertySet](typespec_2025_05_22.md)
-- [Two kinds of extension resource](typespec_2025_06_26.md)
-- [Using namespaces and encountering duplicate-symbol error](typespec_2025_06_26.md)
-- [We cannot customize the Type for ResourceNameParameter?](typespec_2025_06_26.md) 🎮
-- [Location based extension resource off a tenant level resource](typespec_2025_07_17.md)
+- [Annotate same model with SubscriptionLocationResource and ResourceGroupLocationResource](typespec_2025_05_22.md)(ignore)
+- [Extend ResourceModelWithAllowedPropertySet](typespec_2025_05_22.md) (ignore, cannot reproduce)
+- [Two kinds of extension resource](typespec_2025_06_26.md) (selected)
+- [Using namespaces and encountering duplicate-symbol error](typespec_2025_06_26.md) (ignore)
+- [We cannot customize the Type for ResourceNameParameter?](typespec_2025_06_26.md) 🎮(ignore)
+- [Location based extension resource off a tenant level resource](typespec_2025_07_17.md) (ignore)
 
 ### Patch (5 questions)
 

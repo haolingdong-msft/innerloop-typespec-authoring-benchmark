@@ -200,10 +200,10 @@ All 159 questions across all 21 files have been successfully categorized accordi
 
 - [Annotate same model with SubscriptionLocationResource and ResourceGroupLocationResource](typespec_2025_05_22.md)(ignore)
 - [Extend ResourceModelWithAllowedPropertySet](typespec_2025_05_22.md) (ignore, cannot reproduce)
-- [Two kinds of extension resource](typespec_2025_06_26.md) (working)
-- [Using namespaces and encountering duplicate-symbol error](typespec_2025_06_26.md)
-- [We cannot customize the Type for ResourceNameParameter?](typespec_2025_06_26.md) 🎮
-- [Location based extension resource off a tenant level resource](typespec_2025_07_17.md)
+- [Two kinds of extension resource](typespec_2025_06_26.md) (selected)
+- [Using namespaces and encountering duplicate-symbol error](typespec_2025_06_26.md) (ignore)
+- [We cannot customize the Type for ResourceNameParameter?](typespec_2025_06_26.md) 🎮(ignore)
+- [Location based extension resource off a tenant level resource](typespec_2025_07_17.md) (ignore)
 
 ### Patch (5 questions)
 

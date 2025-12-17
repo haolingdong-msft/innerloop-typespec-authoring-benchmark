@@ -6,7 +6,7 @@ add a default value `21` for property age in model EmployeeProperties from a api
 
 ### Input Context
 
-<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Versioning/version-spread-property/tsp/main.tsp>
+<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Versioning/001002-version-default-value/tsp/main.tsp>
 
 ```tsp
 import "@typespec/rest";
@@ -84,9 +84,13 @@ union ProvisioningState {
 ```tsp
 /** Employee properties */
 model EmployeeProperties {
-  /** Age of employee */
-  @typeChangedFrom(Versions.`2025-05-04-preview`, int32)
-  @madeOptional
+  /** Age of employee (before 2025-11-01) */
+  @removed(Versions.v2025_11_01)
+  @renamedFrom(Versions.v2025_11_01, "age")
+  oldAge?: int32;
+
+  /** Age of employee (from 2025-11-01 onward, default is 21) */
+  @added(Versions.v2025_11_01)
   age?: int32 = 21;
 
   /** City of employee */

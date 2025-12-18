@@ -2,6 +2,8 @@
 
 ## Prompts
 
+To define a PATCH operation of Employees. It is to update properties of an employee. Ensure the definition meets TypeSpec Azure guidelines.
+
 ### Input context
 <https://github.com/Azure/azure-rest-api-specs/pull/37109>
 

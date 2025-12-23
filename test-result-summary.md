@@ -9,3 +9,4 @@
 | 001001-version-spread-property                 | fail                             | fail                  | pass                                | pass                     |
 | 001002-version-default-value                   | fail                             | fail                  | pass                                | pass                     |
 | 001003-version-required-to-optional            | fail                             | fail                  | pass                                | pass                     |
+| 001004-version-property-decorator            | fail                             | fail                  | fail                                | fail                     |

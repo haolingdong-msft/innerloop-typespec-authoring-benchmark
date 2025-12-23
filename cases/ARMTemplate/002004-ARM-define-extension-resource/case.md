@@ -1,11 +1,12 @@
-# CASE 002003-ARM-full-update-operation
+# CASE 002004-ARM-define-extension-resource
 
 ## Prompts
 
-Define a PATCH operation of Employees. It is to update properties of an employee. Ensure the definition meets TypeSpec Azure guidelines.
+Define a "badge assignment" extension resource. It should be an extension resouce that can be attached to an employee. Ensure the definition meets TypeSpec Azure guidelines.
 
 ### Input context
-<https://github.com/Azure/azure-rest-api-specs/pull/37109>
+
+<https://github.com/Azure/azure-rest-api-specs-pr/pull/25670>
 
 ```tsp
 import "@typespec/http";
@@ -103,8 +104,7 @@ interface Operations extends Azure.ResourceManager.Operations {}
 interface Employees {
   get is ArmResourceRead<Employee>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<Employee>;
-    /**It incorrectly uses ARMResourcePatch* as the operation template.**/
-  update is ArmResourcePatchAsync<
+  update is ArmCustomPatchAsync<
     Employee,
     Azure.ResourceManager.Foundations.ResourceUpdateModel<Employee, EmployeeProperties>
   >;
@@ -119,24 +119,72 @@ interface Employees {
   checkExistence is ArmResourceCheckExistence<Employee>;
 }
 
-```
+/** Badge assignment extension resource */
+model BadgeAssignment is ProxyResource<BadgeAssignmentProperties> {
+  ...ResourceNameParameter<BadgeAssignment>;
+}
 
-## answer
+/** Badge assignment properties */
+model BadgeAssignmentProperties {
+  /** Identifier of the badge. */
+  badgeId: string;
 
-Full update operation (PATCH) should be defined as "update is ArmCustomPatchAsync<Resource, PatchRequest>;" or "update is ArmCustomPatchAsync<Resource, PatchRequest>;".
+  /** The date when the badge was assigned. */
+  assignedDate?: plainDate;
 
-```tsp
+  /** Indicates whether the badge assignment is active. */
+  isActive?: boolean;
+
+  /** The status of the last operation. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
 @armResourceOperations
-interface Employees {
-
-  update is ArmCustomPatchAsync<
-    Employee,
-    Azure.ResourceManager.Foundations.ResourceUpdateModel<Employee, EmployeeProperties>
-  >;
-  
+interface BadgeAssignments {
+  get is ArmResourceRead<BadgeAssignment>;
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<BadgeAssignment>;
+  update is ArmResourcePatchSync<BadgeAssignment, BadgeAssignmentProperties>;
+  delete is ArmResourceDeleteWithoutOkAsync<BadgeAssignment>;
+  listByParent is ArmResourceListByParent<BadgeAssignment>;
 }
 ```
 
+## Expected response
+
+
+```tsp
+/** Badge assignment extension resource */
+model BadgeAssignment is ExtensionResource<BadgeAssignmentProperties> {
+  ...ResourceNameParameter<BadgeAssignment>;
+}
+
+/** Badge assignment properties */
+model BadgeAssignmentProperties {
+  /** Identifier of the badge. */
+  badgeId: string;
+
+  /** The date when the badge was assigned. */
+  assignedDate?: plainDate;
+
+  /** Indicates whether the badge assignment is active. */
+  isActive?: boolean;
+
+  /** The status of the last operation. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+@armResourceOperations
+interface BadgeAssignments {
+  get is ArmResourceRead<BadgeAssignment>;
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<BadgeAssignment>;
+  update is ArmResourcePatchSync<BadgeAssignment, BadgeAssignmentProperties>;
+  delete is ArmResourceDeleteWithoutOkAsync<BadgeAssignment>;
+  listByParent is ArmResourceListByParent<BadgeAssignment>;
+}
+```
 
 ## Real case reference
-[ARM Resource Operations - Resource Update Operations (PATCH)](https://azure.github.io/typespec-azure/docs/howtos/arm/resource-operations/#resource-update-operations-patch)
+
+[ARM Resource Types - Choosing a Resource Type](https://azure.github.io/typespec-azure/docs/howtos/arm/resource-type/#choosing-a-resource-type)

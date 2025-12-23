@@ -1,13 +1,3 @@
-# CASE 002003-ARM-full-update-operation
-
-## Prompts
-
-Define a PATCH operation of Employees. It is to update properties of an employee. Ensure the definition meets TypeSpec Azure guidelines.
-
-### Input context
-<https://github.com/Azure/azure-rest-api-specs/pull/37109>
-
-```tsp
 import "@typespec/http";
 import "@typespec/rest";
 import "@typespec/versioning";
@@ -103,8 +93,7 @@ interface Operations extends Azure.ResourceManager.Operations {}
 interface Employees {
   get is ArmResourceRead<Employee>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<Employee>;
-    /**It incorrectly uses ARMResourcePatch* as the operation template.**/
-  update is ArmResourcePatchAsync<
+  update is ArmCustomPatchAsync<
     Employee,
     Azure.ResourceManager.Foundations.ResourceUpdateModel<Employee, EmployeeProperties>
   >;
@@ -119,24 +108,32 @@ interface Employees {
   checkExistence is ArmResourceCheckExistence<Employee>;
 }
 
-```
-
-## answer
-
-Full update operation (PATCH) should be defined as "update is ArmCustomPatchAsync<Resource, PatchRequest>;" or "update is ArmCustomPatchAsync<Resource, PatchRequest>;".
-
-```tsp
-@armResourceOperations
-interface Employees {
-
-  update is ArmCustomPatchAsync<
-    Employee,
-    Azure.ResourceManager.Foundations.ResourceUpdateModel<Employee, EmployeeProperties>
-  >;
-  
+/** Badge assignment extension resource */
+model BadgeAssignment is ProxyResource<BadgeAssignmentProperties> {
+  ...ResourceNameParameter<BadgeAssignment>;
 }
-```
 
+/** Badge assignment properties */
+model BadgeAssignmentProperties {
+  /** Identifier of the badge. */
+  badgeId: string;
 
-## Real case reference
-[ARM Resource Operations - Resource Update Operations (PATCH)](https://azure.github.io/typespec-azure/docs/howtos/arm/resource-operations/#resource-update-operations-patch)
+  /** The date when the badge was assigned. */
+  assignedDate?: plainDate;
+
+  /** Indicates whether the badge assignment is active. */
+  isActive?: boolean;
+
+  /** The status of the last operation. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+@armResourceOperations
+interface BadgeAssignments {
+  get is ArmResourceRead<BadgeAssignment>;
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<BadgeAssignment>;
+  update is ArmResourcePatchSync<BadgeAssignment, BadgeAssignmentProperties>;
+  delete is ArmResourceDeleteWithoutOkAsync<BadgeAssignment>;
+  listByParent is ArmResourceListByParent<BadgeAssignment>;
+}

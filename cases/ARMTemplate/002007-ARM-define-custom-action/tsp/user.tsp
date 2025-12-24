@@ -44,6 +44,25 @@ model UserProperties {
 	provisioningState?: ProvisioningState;
 }
 
+/** Request body for the notify action. */
+model NotifyRequest {
+	/** The notification message to send. */
+	message: string;
+
+	/** The notification priority. */
+	priority?: "low" | "medium" | "high";
+}
+
+/** Response for the notify action. */
+model NotifyResponse {
+	/** Indicates whether the notification was sent successfully. */
+	success: boolean;
+
+	/** Additional message about the notification status. */
+	@visibility(Lifecycle.Read)
+	statusMessage?: string;
+}
+
 /** The provisioning state of a resource. */
 @lroStatus
 union ProvisioningState {
@@ -91,6 +110,59 @@ interface Users {
 
 	/** Lists User resources in a subscription. */
 	listBySubscription is ArmListBySubscription<User>;
+
+	/** Sends a notification to the User resource. */
+	notify is ArmResourceActionSync<User, NotifyRequest, NotifyResponse>;
+}
+
+/** A Contoso Address resource. */
+@parentResource(User)
+model Address is ProxyResource<AddressProperties> {
+	...ResourceNameParameter<Address>;
+}
+
+/** Properties of the Contoso Address resource. */
+model AddressProperties {
+	/** Street address line 1. */
+	street1?: string;
+
+	/** Street address line 2. */
+	street2?: string;
+
+	/** City name. */
+	city?: string;
+
+	/** State or province name. */
+	state?: string;
+
+	/** Postal or ZIP code. */
+	postalCode?: string;
+
+	/** Country name. */
+	country?: string;
+
+	/** The status of the last operation. */
+	@visibility(Lifecycle.Read)
+	provisioningState?: ProvisioningState;
+}
+
+/** Operations for Contoso Address resources. */
+@armResourceOperations
+interface Addresses {
+	/** Gets an Address resource. */
+	get is ArmResourceRead<Address>;
+
+	/** Creates or updates an Address resource. */
+	createOrUpdate is ArmResourceCreateOrReplaceAsync<Address>;
+
+	/** Patches an Address resource. */
+	update is ArmResourcePatchSync<Address, AddressProperties>;
+
+	/** Deletes an Address resource. */
+	delete is ArmResourceDeleteWithoutOkAsync<Address>;
+
+	/** Lists Address resources for a User. */
+	listByParent is ArmResourceListByParent<Address>;
 }
 
 

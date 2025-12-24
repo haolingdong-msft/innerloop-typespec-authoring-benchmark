@@ -1,13 +1,3 @@
-# CASE 002006-ARM-define-child-resource
-## Prompt
-
-Create a new "AddressResource" child resource under the parent resource "user". Ensure the definition meets TypeSpec Azure design guidelines.
-
-### Input context
-
-```tsp
-//user.tsp
-
 import "@typespec/http";
 import "@typespec/rest";
 import "@typespec/versioning";
@@ -103,14 +93,6 @@ interface Users {
 	listBySubscription is ArmListBySubscription<User>;
 }
 
-
-```
-
-## Expected response
-
-You can create parent/child relationships between resource types by using the @parentResource decorator when defining a resource type.
-
-```tsp
 /** A Contoso Address resource. */
 @parentResource(User)
 model Address is ProxyResource<AddressProperties> {
@@ -161,9 +143,4 @@ interface Addresses {
 	listByParent is ArmResourceListByParent<Address>;
 }
 
-```
 
-## Case reference
-
-[Defining Child Resouce Types](https://azure.github.io/typespec-azure/docs/getstarted/azure-resource-manager/step03/)
-[ARM Resource Terminology](https://armwiki.azurewebsites.net/introduction/concepts/resources.html#resource-terminology)

@@ -1,7 +1,7 @@
 
 # CASE 002002-ARM-define-extension-resource
 
-## Prompts
+## Prompt
 
 add a extension resource asset
 
@@ -63,7 +63,7 @@ interface Employees {
 }
 ```
 
-## answer
+## Expected response
 
 ```tsp
 /** An Asset resource */
@@ -122,5 +122,5 @@ interface AssetOps<Scope extends Azure.ResourceManager.Foundations.SimpleResourc
 
 ```
 
-# Real case reference
+# Case reference
 

@@ -1,6 +1,6 @@
 # CASE 002003-ARM-full-update-operation
 
-## Prompts
+## Prompt
 
 Define a PATCH operation of Employees. It is to update properties of an employee. Ensure the definition meets TypeSpec Azure guidelines.
 
@@ -121,7 +121,7 @@ interface Employees {
 
 ```
 
-## answer
+## Expected response
 
 Full update operation (PATCH) should be defined as "update is ArmCustomPatchAsync<Resource, PatchRequest>;" or "update is ArmCustomPatchAsync<Resource, PatchRequest>;".
 
@@ -138,5 +138,5 @@ interface Employees {
 ```
 
 
-## Real case reference
+## Case reference
 [ARM Resource Operations - Resource Update Operations (PATCH)](https://azure.github.io/typespec-azure/docs/howtos/arm/resource-operations/#resource-update-operations-patch)

@@ -5,7 +5,7 @@ An ARM resource provider is composed of resources. There are three essential com
 - A model type defining the propoerties of the resource type
 - An interface that defines the operations that can be performed on the resource type, usually a combination of recommended and required operations and resrouce actions
 
-## Prompts
+## Prompt
 
 Define a Azure resource "User" under the namespace "Microsoft.Contoso" using TypeSpec. Ensure the definition meets TypeSpec Azure design guidelines.
 
@@ -135,7 +135,7 @@ interface Users {
 
 ```
 
-## Real case reference
+## Case reference
 
 [Defining an Azure Resource](https://armwiki.azurewebsites.net/introduction/concepts/resources.html)
 [Defining the resource with Typespec](https://azure.github.io/typespec-azure/docs/getstarted/azure-resource-manager/step02/)

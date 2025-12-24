@@ -1,6 +1,6 @@
 # CASE 002004-ARM-define-extension-resource
 
-## Prompts
+## Prompt
 
 Define a "badge assignment" extension resource. It should be an extension resouce that can be attached to an employee. Ensure the definition meets TypeSpec Azure guidelines.
 
@@ -185,6 +185,6 @@ interface BadgeAssignments {
 }
 ```
 
-## Real case reference
+## Case reference
 
 [ARM Resource Types - Choosing a Resource Type](https://azure.github.io/typespec-azure/docs/howtos/arm/resource-type/#choosing-a-resource-type)

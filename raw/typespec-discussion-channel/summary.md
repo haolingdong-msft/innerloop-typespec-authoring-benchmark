@@ -129,7 +129,7 @@ All 159 questions across all 21 files have been successfully categorized accordi
 
 ### Decorators (22 questions)
 
-- [Augmented decorators on resource in the multi-path scenario](typespec_2025_05_22.md)
+- [Augmented decorators on resource in the multi-path scenario](typespec_2025_05_22.md) (selected)
 - [Customizing key for child operation](typespec_2025_05_22.md)
 - [Discriminators/polymorphism](typespec_2025_05_22.md)
 - [Extending 'Azure.ResourceManager.CommonTypes.ProxyResource' that doesn't define a discriminator.](typespec_2025_05_22.md)

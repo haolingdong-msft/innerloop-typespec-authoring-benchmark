@@ -15,3 +15,4 @@
 | 002007-ARM-define-custom-action                         | pass                             |  pass                     |                                    |                          |
 | 003001-async-delete-op                         | fail                             |                       |                                     |
 | 004001-decorate-mgmt-resource-name-parameter           | fail                             | fail                | fail                                | fail                     |
+| 004002-decorate-length-constrains-on-array-item          | fail                             | fail                | pass                                | pass                     |

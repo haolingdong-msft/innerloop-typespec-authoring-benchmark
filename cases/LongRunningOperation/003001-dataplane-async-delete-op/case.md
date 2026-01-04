@@ -1,4 +1,4 @@
-# CASE 003001-async-delete-operation
+# CASE 003001-dataplane-async-delete-operation
 
 [user query](https://teams.microsoft.com/l/message/19:906c1efbbec54dc8949ac736633e6bdf@thread.skype/1750334021292?tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47&groupId=3e17dcb0-4257-4a30-b843-77f47f1d4121&parentMessageId=1750334021292&teamName=Azure%20SDK&channelName=TypeSpec%20Discussion&createdTime=1750334021292)
 
@@ -6,11 +6,11 @@
 
 Add an async delete operation for StacItems
 
-### Input Context
+### Input code
 
 code: https://github.com/Azure/azure-rest-api-specs/blob/main/specification/orbital/Microsoft.PlanetaryComputer/inma.tsp
 
-To reproduce, first delete the `delete` operation code to simulate no delete operation. Then try to add an async delete operation by agent.
+NOTE: To reproduce, first delete the `delete` operation code to simulate no delete operation. Then try to add an async delete operation by agent.
 
 
 ```tsp
@@ -220,7 +220,11 @@ namespace StacItems {
 
 ```
 
+<<<<<<<< HEAD:cases/LongRunningOperation/003001-dataplane-async-delete-op/case.md
+## Expected output code
+========
 ## Expected response
+>>>>>>>> origin/main:cases/LongRunningOperation/003001-async-delete-op/case.md
 
 ```tsp
 alias StandardResourceOperations = Azure.Core.Foundations.StandardResourceOperations;

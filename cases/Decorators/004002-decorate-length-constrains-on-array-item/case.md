@@ -1,13 +1,13 @@
 
-# CASE 001001-version-spread-property
+# CASE 004002-decorate-length-constrains-on-array-item
 
 ## Prompts
 
-I added `...Azure.ResourceManager.ManagedServiceIdentityProperty;` which update all my existing API versions and introduce a breaking change. I want is to introduce the properties of the spread model '...ManagedServiceIdentityProperty' in a new API version 2025-05-04-preview only.
+add @minLength(3) @maxLength(10) constrains for any item of assets array
 
 ### Input context
 
-<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Versioning/001001-version-spread-property/tsp/main.tsp>
+<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Decorators/004001-decorate-mgmt-resource-name-parameter/tsp/main.tsp>
 
 ```tsp
 import "@typespec/http";
@@ -39,17 +39,11 @@ enum Versions {
   // @useDependency(Azure.ResourceManager.Versions.v1_0_Preview_1)
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
   `2024-10-01-preview`,
-
-  /** 2025-05-04-preview version */
-  // @useDependency(Azure.ResourceManager.Versions.v1_0_Preview_1)
-  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-  `2025-05-04-preview`,
 }
 
 /** A ContosoProviderHub resource */
 model Employee is TrackedResource<EmployeeProperties> {
   ...ResourceNameParameter<Employee>;
-  ...ManagedServiceIdentityProperty;
 }
 
 /** Employee properties */
@@ -67,6 +61,9 @@ model EmployeeProperties {
   /** The status of the last operation. */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
+
+  /** The assets belong to the employee. */
+  assets: string[];
 }
 
 /** The provisioning state of a resource. */
@@ -138,21 +135,39 @@ interface Employees {
 
 ## answer
 
-add @@added(Employee.identity, Versions.`2025-05-04-preview`);
+In TypeSpec, you can implement this constraint by defining a custom scalar type for the array items with the appropriate decorators, and then use that scalar as the array element type.
 
 ```tsp
-/** A ContosoProviderHub resource */
+/** Asset name with length constraints */
+@minLength(3)
+@maxLength(10)
+scalar AssetName extends string;
+
+/** Employee resource */
 model Employee is TrackedResource<EmployeeProperties> {
   ...ResourceNameParameter<Employee>;
-  ...ManagedServiceIdentityProperty;
 }
 
-@@added(Employee.identity, Versions.`2025-05-04-preview`);
+/** Employee properties */
+model EmployeeProperties {
+  /** Age of employee */
+  age?: int32;
 
-```
+  /** City of employee */
+  city?: string;
 
-![alt text](image-1.png)
+  /** Profile of employee */
+  @encode("base64url")
+  profile?: bytes;
+
+  /** The status of the last operation. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /** The assets belong to the employee. */
+  assets: AssetName[];
+}
 
 ## Real case reference
 
-[How to version a spread property (ManagedServiceIdentityProperty)?](https://teams.microsoft.com/l/message/19:906c1efbbec54dc8949ac736633e6bdf@thread.skype/1754356630816?tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47&groupId=3e17dcb0-4257-4a30-b843-77f47f1d4121&parentMessageId=1754356630816&teamName=Azure%20SDK&channelName=TypeSpec%20Discussion&createdTime=1754356630816)
+[Array items with length constraints](https://teams.microsoft.com/l/message/19:906c1efbbec54dc8949ac736633e6bdf@thread.skype/1750401903903?tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47&groupId=3e17dcb0-4257-4a30-b843-77f47f1d4121&parentMessageId=1750401903903&teamName=Azure%20SDK&channelName=TypeSpec%20Discussion&createdTime=17504019039033)

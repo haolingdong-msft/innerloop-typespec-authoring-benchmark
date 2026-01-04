@@ -1,12 +1,12 @@
-# CASE 001003-version-required-to-optional
+# CASE 001004-version-property-decorator
 
 ## prompt
 
-change the property age of EmployeeProperties from required to optional for new api version 2025-05-04-preview
+change the visibility of property 'provisioningState' from Lifecycle.Read to Lifecycle.Read and Lifecycle.Create in version 2025-05-04-preview only
 
 ### Input Context
 
-<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Versioning/001003-version-required-to-optional/tsp/main.tsp>
+<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Versioning/001004-version-property-decorator/tsp/main.tsp>
 
 ```tsp
 import "@typespec/rest";
@@ -36,9 +36,9 @@ enum Versions {
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
   v2021_11_01: "2021-11-01",
 
-  /** 2025-11-01 version */
+  /** 2025-05-04-preview version */
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-  v2025_11_01: "2025-11-01",
+  `2025-05-04-preview`,
 }
 
 /** Employee properties */
@@ -77,7 +77,6 @@ union ProvisioningState {
 
   string,
 }
-
 ```
 
 ## answer
@@ -86,7 +85,6 @@ union ProvisioningState {
 /** Employee properties */
 model EmployeeProperties {
   /** Age of employee */
-  @madeOptional(Microsoft.Widget.Versions.`2025-05-04-preview`)
   age?: int32;
 
   /** City of employee */
@@ -97,7 +95,18 @@ model EmployeeProperties {
   profile?: bytes;
 
   /** The status of the last operation. */
+  @removed(Versions.`2025-05-04-preview`)
   @visibility(Lifecycle.Read)
+  @renamedFrom(Versions.v2025_11_01, "experience")
+  oldProvisioningState?: ProvisioningState;
+
+  /** The status of the last operation. */
+  @added(Versions.`2025-05-04-preview`)
+  @visibility(Lifecycle.Read, Lifecycle.Create)
   provisioningState?: ProvisioningState;
 }
 ```
+
+# Real case reference
+
+[Handling multiple API versions using typespec](https://teams.microsoft.com/l/message/19:906c1efbbec54dc8949ac736633e6bdf@thread.skype/1747859016356?tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47&groupId=3e17dcb0-4257-4a30-b843-77f47f1d4121&parentMessageId=1747859016356&teamName=Azure%20SDK&channelName=TypeSpec%20Discussion&createdTime=1747859016356)

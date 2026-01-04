@@ -1,13 +1,11 @@
+# CASE 002003-ARM-full-update-operation
 
-# CASE 001001-version-spread-property
+## Prompt
 
-## Prompts
-
-I added `...Azure.ResourceManager.ManagedServiceIdentityProperty;` which update all my existing API versions and introduce a breaking change. I want is to introduce the properties of the spread model '...ManagedServiceIdentityProperty' in a new API version 2025-05-04-preview only.
+Define a PATCH operation of Employees. It is to update properties of an employee. Ensure the definition meets TypeSpec Azure guidelines.
 
 ### Input context
-
-<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Versioning/001001-version-spread-property/tsp/main.tsp>
+<https://github.com/Azure/azure-rest-api-specs/pull/37109>
 
 ```tsp
 import "@typespec/http";
@@ -31,25 +29,13 @@ namespace Microsoft.ContosoProviderHub;
 /** Contoso API versions */
 enum Versions {
   /** 2021-10-01-preview version */
-  // @useDependency(Azure.ResourceManager.Versions.v1_0_Preview_1)
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
   `2021-10-01-preview`,
-
-  /** 2021-10-01-preview version */
-  // @useDependency(Azure.ResourceManager.Versions.v1_0_Preview_1)
-  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-  `2024-10-01-preview`,
-
-  /** 2025-05-04-preview version */
-  // @useDependency(Azure.ResourceManager.Versions.v1_0_Preview_1)
-  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-  `2025-05-04-preview`,
 }
 
 /** A ContosoProviderHub resource */
 model Employee is TrackedResource<EmployeeProperties> {
   ...ResourceNameParameter<Employee>;
-  ...ManagedServiceIdentityProperty;
 }
 
 /** Employee properties */
@@ -117,12 +103,10 @@ interface Operations extends Azure.ResourceManager.Operations {}
 interface Employees {
   get is ArmResourceRead<Employee>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<Employee>;
-  update is ArmCustomPatchSync<
+    /**It incorrectly uses ARMResourcePatch* as the operation template.**/
+  update is ArmResourcePatchAsync<
     Employee,
-    Azure.ResourceManager.Foundations.ResourceUpdateModel<
-      Employee,
-      EmployeeProperties
-    >
+    Azure.ResourceManager.Foundations.ResourceUpdateModel<Employee, EmployeeProperties>
   >;
   delete is ArmResourceDeleteWithoutOkAsync<Employee>;
   listByResourceGroup is ArmResourceListByParent<Employee>;
@@ -134,25 +118,25 @@ interface Employees {
   /** A sample HEAD operation to check resource existence */
   checkExistence is ArmResourceCheckExistence<Employee>;
 }
+
 ```
 
-## answer
+## Expected response
 
-add @@added(Employee.identity, Versions.`2025-05-04-preview`);
+Full update operation (PATCH) should be defined as "update is ArmCustomPatchAsync<Resource, PatchRequest>;" or "update is ArmCustomPatchAsync<Resource, PatchRequest>;".
 
 ```tsp
-/** A ContosoProviderHub resource */
-model Employee is TrackedResource<EmployeeProperties> {
-  ...ResourceNameParameter<Employee>;
-  ...ManagedServiceIdentityProperty;
+@armResourceOperations
+interface Employees {
+
+  update is ArmCustomPatchAsync<
+    Employee,
+    Azure.ResourceManager.Foundations.ResourceUpdateModel<Employee, EmployeeProperties>
+  >;
+  
 }
-
-@@added(Employee.identity, Versions.`2025-05-04-preview`);
-
 ```
 
-![alt text](image-1.png)
 
-## Real case reference
-
-[How to version a spread property (ManagedServiceIdentityProperty)?](https://teams.microsoft.com/l/message/19:906c1efbbec54dc8949ac736633e6bdf@thread.skype/1754356630816?tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47&groupId=3e17dcb0-4257-4a30-b843-77f47f1d4121&parentMessageId=1754356630816&teamName=Azure%20SDK&channelName=TypeSpec%20Discussion&createdTime=1754356630816)
+## Case reference
+[ARM Resource Operations - Resource Update Operations (PATCH)](https://azure.github.io/typespec-azure/docs/howtos/arm/resource-operations/#resource-update-operations-patch)

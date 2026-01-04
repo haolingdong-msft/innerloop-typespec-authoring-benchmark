@@ -99,13 +99,13 @@ All 159 questions across all 21 files have been successfully categorized accordi
 - [First experience of TSP ApiVersion introduction - passed all CI checks, what's next?](typespec_2025_05_22.md) (ignore)
 - [How to restrict importing typespec files in main based off of versions.](typespec_2025_05_22.md) (ignore, general agent supported)
 - [Is there way to change property from required to optional?](typespec_2025_05_22.md) (selected)
-- [Model validation failures - Newer models introduced in new version adds the parent models in the older version.](typespec_2025_05_22.md)
-- [Proper Service Versioning](typespec_2025_05_22.md) 🎮
-- [Setting default value for a union type for only some API versions](typespec_2025_05_22.md)
-- [Sharing models between data plane and control plane](typespec_2025_05_22.md)
-- [Breaking Change(Cross-Version) failure](typespec_2025_06_26.md)
-- [Can I have different Name Regex for ARM Resource for different api versions?](typespec_2025_06_26.md)
-- [Handling multiple API versions using typespec](typespec_2025_06_26.md)
+- [Model validation failures - Newer models introduced in new version adds the parent models in the older version.](typespec_2025_05_22.md) (ignore)
+- [Proper Service Versioning](typespec_2025_05_22.md) 🎮 (ignore)
+- [Setting default value for a union type for only some API versions](typespec_2025_05_22.md)(ignore)
+- [Sharing models between data plane and control plane](typespec_2025_05_22.md)(ignore)
+- [Breaking Change(Cross-Version) failure](typespec_2025_06_26.md) (ignore)
+- [Can I have different Name Regex for ARM Resource for different api versions?](typespec_2025_06_26.md)(ignore, typespec does not support.)
+- [Handling multiple API versions using typespec](typespec_2025_06_26.md) (selected)
 - [help with @added(multipleversion) vs @removed(oldversion)](typespec_2025_06_26.md)
 - [How to change the model to accommodate new decorators for validations](typespec_2025_06_26.md)
 - [Is adding new value to enum is considered a breaking change?](typespec_2025_06_26.md)
@@ -118,7 +118,7 @@ All 159 questions across all 21 files have been successfully categorized accordi
 - [Will changing the delete method on a tracked resource be a breaking change?](typespec_2025_07_03.md)
 - ["is referencing versioned type but is not versioned"](typespec_2025_07_17.md)
 - [TypeSpec Versioning Generic Question](typespec_2025_07_24.md)
-- [How to version a spread property (ManagedServiceIdentityProperty)?](typespec_2025_08_07.md) 🎮
+- [How to version a spread property (ManagedServiceIdentityProperty)?](typespec_2025_08_07.md) 🎮 (selected)
 - [Modify/rename @resource(s)](typespec_2025_08_14.md)
 - [Changing Property to Optional with Default](typespec_2025_09_26.md) 🎮
 - [Can we reorder the API versions like this, and should we remove the older preview version?](typespec_2025_10_10.md)
@@ -129,14 +129,14 @@ All 159 questions across all 21 files have been successfully categorized accordi
 
 ### Decorators (22 questions)
 
-- [Augmented decorators on resource in the multi-path scenario](typespec_2025_05_22.md)
-- [Customizing key for child operation](typespec_2025_05_22.md)
-- [Discriminators/polymorphism](typespec_2025_05_22.md)
-- [Extending 'Azure.ResourceManager.CommonTypes.ProxyResource' that doesn't define a discriminator.](typespec_2025_05_22.md)
-- [Multiple layers of inheritance for discriminative model](typespec_2025_05_22.md)
-- [Seeking Guidance on Defining ResourceStatusCode in TypeSpec](typespec_2025_05_22.md)
-- [Support for @includeInapplicableMetadataInPayload decorator](typespec_2025_05_22.md)
-- [Array items with length constraints](typespec_2025_06_26.md)
+- [Augmented decorators on resource in the multi-path scenario](typespec_2025_05_22.md) (selected)
+- [Customizing key for child operation](typespec_2025_05_22.md)(ignore)
+- [Discriminators/polymorphism](typespec_2025_05_22.md) (ignore)
+- [Extending 'Azure.ResourceManager.CommonTypes.ProxyResource' that doesn't define a discriminator.](typespec_2025_05_22.md)(ignore)
+- [Multiple layers of inheritance for discriminative model](typespec_2025_05_22.md)(ignore, typespec not support)
+- [Seeking Guidance on Defining ResourceStatusCode in TypeSpec](typespec_2025_05_22.md) (ignore)
+- [Support for @includeInapplicableMetadataInPayload decorator](typespec_2025_05_22.md) (ignore)
+- [Array items with length constraints](typespec_2025_06_26.md) (selected)
 - [Best way to model a DaysOfWeek Enum/Union?](typespec_2025_06_26.md)
 - [Does TypeSpec have the option to achieve mutually exclusive?](typespec_2025_06_26.md)
 - [Record<Element> type](typespec_2025_06_26.md)
@@ -198,12 +198,12 @@ All 159 questions across all 21 files have been successfully categorized accordi
 
 ### Arm Resource Manager(ARM) Template (6 questions)
 
-- [Annotate same model with SubscriptionLocationResource and ResourceGroupLocationResource](typespec_2025_05_22.md)
-- [Extend ResourceModelWithAllowedPropertySet](typespec_2025_05_22.md)
-- [Two kinds of extension resource](typespec_2025_06_26.md)
-- [Using namespaces and encountering duplicate-symbol error](typespec_2025_06_26.md)
-- [We cannot customize the Type for ResourceNameParameter?](typespec_2025_06_26.md) 🎮
-- [Location based extension resource off a tenant level resource](typespec_2025_07_17.md)
+- [Annotate same model with SubscriptionLocationResource and ResourceGroupLocationResource](typespec_2025_05_22.md)(ignore)
+- [Extend ResourceModelWithAllowedPropertySet](typespec_2025_05_22.md) (ignore, cannot reproduce)
+- [Two kinds of extension resource](typespec_2025_06_26.md) (selected)
+- [Using namespaces and encountering duplicate-symbol error](typespec_2025_06_26.md) (ignore)
+- [We cannot customize the Type for ResourceNameParameter?](typespec_2025_06_26.md) 🎮(ignore)
+- [Location based extension resource off a tenant level resource](typespec_2025_07_17.md) (ignore)
 
 ### Patch (5 questions)
 

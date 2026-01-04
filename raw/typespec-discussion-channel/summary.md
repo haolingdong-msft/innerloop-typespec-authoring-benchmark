@@ -161,7 +161,7 @@ All 159 questions across all 21 files have been successfully categorized accordi
 - [Non-resource long running operation](typespec_2025_05_22.md)
 - [Resource Action LRO response modelling](typespec_2025_05_22.md)
 - [What is `x-ms-long-running-operation-options` for LRO operation of data-plane when `emit-lro-options: none` in `@azure-tools/typespec-autorest`?](typespec_2025_05_22.md)
-- [Asynchronous resource delete](typespec_2025_06_26.md) 🎮
+- [Asynchronous resource delete](typespec_2025_06_26.md) 🎮 (selected)
 - [Does it make sense for a put operation with Location header?](typespec_2025_07_03.md) 🎮
 - [Issue with LongRunningResourceCreateWithServiceProvidedName operation](typespec_2025_07_03.md)
 - [How to suppress 200 response code for a LongRunningOperation?](typespec_2025_08_07.md)

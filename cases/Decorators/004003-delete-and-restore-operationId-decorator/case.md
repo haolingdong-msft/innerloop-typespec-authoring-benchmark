@@ -2,7 +2,7 @@
 
 ## prompt
 
-1.Remove @operationId and #suppress "@azure-tools/typespec-azure-core/no-openapi" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details" in 004003-delete-and-restore-operationId-decorator\tsp
+1.Remove @operationId and #suppress "@azure-tools/typespec-azure-core/no-openapi" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 
 Waiting for the first task to be successfully completed.
 
@@ -10,7 +10,7 @@ Waiting for the first task to be successfully completed.
 
 ### Input code
 
-All related code is located in the tsp/ folder. The following is an example TypeSpec snippet from VpnServerConfigurationPolicyGroup.tsp.
+All related code is located in the `tsp/` folder. The following is an example TypeSpec snippet from `VpnServerConfigurationPolicyGroup.tsp.`
 
 ```tsp
 import "@azure-tools/typespec-azure-core";

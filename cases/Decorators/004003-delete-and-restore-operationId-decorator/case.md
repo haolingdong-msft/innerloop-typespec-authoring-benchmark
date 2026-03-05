@@ -6,13 +6,15 @@
 
 Waiting for the first task to be successfully completed.
 
-2.restore those operationIds that do not contain underscores or begin with a lowercase letter should not have been cleared during the previous processing
+2.Restore those operationIds that do not contain underscores or begin with a lowercase letter should not have been cleared during the previous processing
 
 ### Input code
 
-the tsp folder
+004003-delete-and-restore-operationId-decorator\tsp
 
 Example tsp:
+
+VpnServerConfigurationPolicyGroup.tsp
 
 ```tsp
 import "@azure-tools/typespec-azure-core";
@@ -170,4 +172,4 @@ interface VpnServerConfigurationPolicyGroups {
 
 ```
 
-operationId 'configurationPolicyGroups_ListByVpnServerConfiguration' must be preserved: starts with lowercase letter which cannot be handled by @clientName alone, requiring explicit @operationId to maintain backward compatibility with existing OpenAPI spec
+OperationId 'configurationPolicyGroups_ListByVpnServerConfiguration' must be preserved: starts with lowercase letter which cannot be handled by @clientName alone, requiring explicit @operationId to maintain backward compatibility with existing OpenAPI spec

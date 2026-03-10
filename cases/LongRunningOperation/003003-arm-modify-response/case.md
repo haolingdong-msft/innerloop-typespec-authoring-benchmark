@@ -1,0 +1,110 @@
+# CASE 003003-arm-modify-response
+
+## prompt
+
+Modify the LRO createOrUpdate PUT operation in interface employees so that it returns Azure-AsyncOperation header but NOT Retry-After header in the 201 response. The operation currently uses ArmResourceCreateOrReplaceAsync<Employee> template.
+
+### Input code
+
+```ts
+import "@typespec/rest";
+import "@typespec/http";
+import "@azure-tools/typespec-azure-core";
+import "@azure-tools/typespec-azure-resource-manager";
+
+using TypeSpec.Rest;
+using TypeSpec.Http;
+using Azure.Core;
+using Azure.ResourceManager;
+
+namespace Microsoft.Widget;
+
+/** Employee resource */
+model Employee is TrackedResource<EmployeeProperties> {
+  ...ResourceNameParameter<Employee>;
+}
+
+/** Employee properties */
+model EmployeeProperties {
+  /** Age of employee */
+  age?: int32;
+
+  /** City of employee */
+  city?: string;
+
+  /** Profile of employee */
+  @encode("base64url")
+  profile?: bytes;
+
+  /** The status of the last operation. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+/** The resource provisioning state. */
+@lroStatus
+union ProvisioningState {
+  ResourceProvisioningState,
+
+  /** The resource is being provisioned */
+  Provisioning: "Provisioning",
+
+  /** The resource is updating */
+  Updating: "Updating",
+
+  /** The resource is being deleted */
+  Deleting: "Deleting",
+
+  /** The resource create request has been accepted */
+  Accepted: "Accepted",
+
+  string,
+}
+
+/** Employee move request */
+model MoveRequest {
+  /** The moving from location */
+  from: string;
+
+  /** The moving to location */
+  to: string;
+}
+
+/** Employee move response */
+model MoveResponse {
+  /** The status of the move */
+  movingStatus: string;
+}
+
+@armResourceOperations
+interface Employees {
+  get is ArmResourceRead<Employee>;
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<Employee>;
+  update is ArmResourcePatchSync<Employee, EmployeeProperties>;
+  delete is ArmResourceDeleteWithoutOkAsync<Employee>;
+  listByResourceGroup is ArmResourceListByParent<Employee>;
+  listBySubscription is ArmListBySubscription<Employee>;
+}
+
+```
+
+### Expected output code
+
+```tsp
+/** Custom LRO headers for Employee createOrUpdate - Azure-AsyncOperation only, no Retry-After */
+alias EmployeeCreateOrReplaceLroHeaders = ArmAsyncOperationHeader<FinalResult = Employee>
+
+@armResourceOperations
+interface Employees {
+  get is ArmResourceRead<Employee>;
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<
+    Employee,
+    LroHeaders = EmployeeCreateOrReplaceLroHeaders
+  >;
+  update is ArmResourcePatchSync<Employee, EmployeeProperties>;
+  delete is ArmResourceDeleteWithoutOkAsync<Employee>;
+  listByResourceGroup is ArmResourceListByParent<Employee>;
+  listBySubscription is ArmListBySubscription<Employee>;
+}
+```
+

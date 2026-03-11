@@ -2,7 +2,7 @@
 
 ## prompt
 
-I want to add a new stable version `2025-01-01`, and the preview changes are not stable.
+I want to add a new stable version `2025-01-01`.
 
 ### Input Context
 
@@ -138,6 +138,11 @@ Based on the [Adding a Stable Version when the Last Version was Preview](https:/
 - agent behavior: Ask the user whether there are any additional types, properties, or modifications to introduce in the new stable version beyond what was in the preview.
 - user input: Which new changes to introduce. Mark each with the appropriate versioning decorator referencing the new stable version.
 
+### User Input for test
+  1. model WorkLocation is stable
+  2. city removal is not stable
+  3. city property in WorkLocation will be removed
+
 ## result
 
 Scenario: **Adding a Stable Version when the Last Version was a Preview** — the latest existing version is a preview, and the user wants to promote the API to stable.
@@ -178,6 +183,10 @@ model EmployeeProperties {
   /** City of employee */
   city?: string;
 
+  /** Work location of employee */
+  @added(Versions.v2025_01_01)
+  workLocation?: WorkLocation;
+
   /** Profile of employee */
   @encode("base64url")
   profile?: bytes;
@@ -185,6 +194,19 @@ model EmployeeProperties {
   /** The status of the last operation. */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
+}
+
+/** Work location details */
+@added(Versions.v2025_01_01)
+model WorkLocation {
+  /** Country */
+  country?: string;
+
+  /** Company */
+  company?: string;
+
+  /** Seat number */
+  seatNumber?: string;
 }
 ```
 

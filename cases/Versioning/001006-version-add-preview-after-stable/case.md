@@ -134,8 +134,8 @@ Based on the [Adding a Preview Version when the Last Version was Stable](https:/
 - user input: Which changes to introduce. Mark each with the appropriate versioning decorator (`@added`, `@renamedFrom`, `@typeChangedFrom`, `@madeOptional`) referencing the new preview version.
 
 ### User input
-  I want to add/modify/remove features
-  add a new property `department` of type `string` to `EmployeeProperties`.
+1. I want to add/modify/remove features
+2. Add a new property `department` of type `string` to `EmployeeProperties`.
 
 ## result
 

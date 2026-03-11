@@ -139,9 +139,9 @@ Based on the [Adding a Stable Version when the Last Version was Preview](https:/
 - user input: Which new changes to introduce. Mark each with the appropriate versioning decorator referencing the new stable version.
 
 ### User Input for test
-  1. model WorkLocation is stable
-  2. city removal is not stable
-  3. city property in WorkLocation will be removed
+1. model WorkLocation is stable
+2. city removal is not stable
+3. city property in WorkLocation will be removed
 
 ## result
 

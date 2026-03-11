@@ -137,9 +137,9 @@ Based on the [General Case: One or more Stable Versions Exist](https://azure.git
 - user input: Which changes to revert. 
 
 ### User input
-  remove added WorkLocation property
-  add back removed city property
-  add email into employee
+1. Remove added WorkLocation property
+2. Add back removed city property
+3. Add email into employee
 
 ## result
 

@@ -133,6 +133,10 @@ Based on the [Adding a Stable Version when the Last Version was Stable](https://
 - agent behavior: Ask the user what new types, properties, renames, or other modifications should be introduced in the new stable version.
 - user input: Which changes to introduce. Mark each with the appropriate versioning decorator (`@added`, `@renamedFrom`, `@typeChangedFrom`, `@madeOptional`) referencing the new stable version.
 
+### User input
+1. Remove added WorkLocation property, add back removed city property
+3. Add a new property `department` of type `string` to `EmployeeProperties`
+
 ## result
 
 Scenario: **Adding a Stable Version when the Last Version was a Stable Version** — the latest existing version is already stable, and the user wants to add another stable version.

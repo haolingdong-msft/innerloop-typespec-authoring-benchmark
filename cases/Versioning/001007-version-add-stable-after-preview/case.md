@@ -2,7 +2,7 @@
 
 ## prompt
 
-I want to promote my service to stable. Add a new stable version `2025-01-01` to replace the preview version `2024-10-01-preview`. In this new stable version, I also want to add a new property `email` of type `string` to `EmployeeProperties`.
+I want to add a new stable version `2025-01-01`.
 
 ### Input Context
 
@@ -34,6 +34,7 @@ enum Versions {
 
   /** 2024-10-01-preview version */
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
+  @previewVersion
   v2024_10_01_preview: "2024-10-01-preview",
 }
 
@@ -44,11 +45,21 @@ model Employee is TrackedResource<EmployeeProperties> {
 
 /** Employee properties */
 model EmployeeProperties {
-  /** Age of employee */
-  age?: int32;
+  /** Age of employee (before 2025-11-01) */
+  @removed(Versions.v2024_10_01_preview)
+  @renamedFrom(Versions.v2024_10_01_preview, "age")
+  oldAge?: int32;
+
+  /** Age of employee (from 2025-11-01 onward, default is 21) */
+  @added(Versions.v2024_10_01_preview)
+  age?: int32 = 21;
 
   /** City of employee */
   city?: string;
+
+  /** Work location of employee */
+  @added(Versions.v2024_10_01_preview)
+  workLocation?: WorkLocation;
 
   /** Profile of employee */
   @encode("base64url")
@@ -57,6 +68,19 @@ model EmployeeProperties {
   /** The status of the last operation. */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
+}
+
+/** Work location details */
+@added(Versions.v2024_10_01_preview)
+model WorkLocation {
+  /** Country */
+  country?: string;
+
+  /** Company */
+  company?: string;
+
+  /** Seat number */
+  seatNumber?: string;
 }
 
 /** The resource provisioning state. */
@@ -104,18 +128,13 @@ Based on the [Adding a Stable Version when the Last Version was Preview](https:/
 
 ### 1. Which type changes from the latest preview are now stable?
 
-- agent behavior: Ask the user which types, properties, or changes introduced in the latest preview version should be carried forward into the new stable version.
-- user input: Which preview changes are now stable. Update their versioning decorators to reference the new stable version instead of the preview version.
+- agent behavior: Which of these preview features should be carried over to the new stable version `2025-01-01`? Should all 4 be included, or should any be excluded?
+- user input: Let me specify which to include/exclude
 
 ### 2. Which changes from the latest preview are NOT in the new stable version?
 
-- agent behavior: Ask the user which types, properties, or changes from the latest preview should NOT appear in the new stable version.
-- user input: Which preview changes to revert.
-
-### 3. Any additional changes in the new stable version?
-
-- agent behavior: Ask the user whether there are any additional types, properties, or modifications to introduce in the new stable version beyond what was in the preview.
-- user input: Which new changes to introduce. Mark each with the appropriate versioning decorator referencing the new stable version.
+- agent behavior: Which features should be **excluded** from the stable version `2025-01-01`? Select all that should NOT carry over.
+- user input: Exclude `workLocation` property and `WorkLocation` model
 
 ## result
 
@@ -134,27 +153,6 @@ enum Versions {
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
   v2025_01_01: "2025-01-01",
 }
-
-/** Employee properties */
-model EmployeeProperties {
-  /** Age of employee */
-  age?: int32;
-
-  /** City of employee */
-  city?: string;
-
-  /** Profile of employee */
-  @encode("base64url")
-  profile?: bytes;
-
-  /** The status of the last operation. */
-  @visibility(Lifecycle.Read)
-  provisioningState?: ProvisioningState;
-
-  /** Email of employee */
-  @added(Versions.v2025_01_01)
-  email?: string;
-}
 ```
 
 2. Rename example folder from the old preview to the new stable version (e.g., `mv examples/2024-10-01-preview examples/2025-01-01`), update the `api-version` parameter in all example files, and add or modify examples to reflect API changes.
@@ -168,6 +166,31 @@ model EmployeeProperties {
      - `@renamedFrom`: Revert to the old name, remove the decorator.
      - `@madeOptional`: Make the property required again, remove the decorator.
      - `@removed`: Remove the decorator (restoring the type).
+
+```tsp
+/** Employee properties */
+model EmployeeProperties {
+  /** Age of employee (before 2025-11-01) */
+  @removed(Versions.v2025_01_01)
+  @renamedFrom(Versions.v2025_01_01, "age")
+  oldAge?: int32;
+
+  /** Age of employee (from 2025-11-01 onward, default is 21) */
+  @added(Versions.v2025_01_01)
+  age?: int32 = 21;
+
+  /** City of employee */
+  city?: string;
+
+  /** Profile of employee */
+  @encode("base64url")
+  profile?: bytes;
+
+  /** The status of the last operation. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+```
 
 ## Reference
 - https://azure.github.io/typespec-azure/docs/howtos/versioning/arm/03-stable-after-preview/

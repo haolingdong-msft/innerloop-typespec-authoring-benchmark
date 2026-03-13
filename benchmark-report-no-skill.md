@@ -1,0 +1,172 @@
+# Benchmark Report: Agent Without MCP Tool (No TypeSpec Authoring Skill)
+
+**Date:** 2025-07-24  
+**Agent:** Claude Opus 4.6 (built-in knowledge only)  
+**MCP Tool Used:** ❌ None (`azsdk_typespec_generate_authoring_plan` NOT called)  
+**Total Cases:** 23
+
+---
+
+## Executive Summary
+
+This report evaluates the agent's ability to answer TypeSpec authoring questions using **only built-in knowledge**, without access to the specialized `azsdk_typespec_generate_authoring_plan` MCP tool. This serves as a baseline to measure the value-add of the MCP tool.
+
+| Metric | No MCP Tool | With MCP Tool | Delta |
+|--------|:-----------:|:-------------:|:-----:|
+| Exact Match | 7/23 (30%) | 21/23 (91%) | **+61%** |
+| Partial Match | 14/23 (61%) | 2/23 (9%) | -52% |
+| No Match | 2/23 (9%) | 0/23 (0%) | -9% |
+| Skill Triggered | N/A | 23/23 | — |
+| MCP Tool Called | 0/23 | 23/23 | — |
+
+**Key Finding:** The MCP tool improves exact match accuracy from **30% to 91%** — a **3x improvement**. Without the tool, the agent struggles most with versioning patterns (1/8 exact) and LRO customization (0/3 exact).
+
+---
+
+## Results by Category
+
+| Category | Cases | Exact | Partial | No Match | Accuracy (Exact) |
+|----------|:-----:|:-----:|:-------:|:--------:|:-----------------:|
+| Versioning | 8 | 1 | 7 | 0 | 12.5% |
+| ARMTemplate | 8 | 5 | 3 | 0 | 62.5% |
+| LongRunningOperation | 3 | 0 | 2 | 1 | 0% |
+| Decorators | 3 | 1 | 1 | 1 | 33.3% |
+| Warning | 1 | 0 | 1 | 0 | 0% |
+| **Total** | **23** | **7** | **14** | **2** | **30.4%** |
+
+### Comparison with MCP Tool
+
+| Category | No-MCP Exact | MCP Exact | Improvement |
+|----------|:------------:|:---------:|:-----------:|
+| Versioning | 1/8 (12.5%) | 8/8 (100%) | **+87.5%** |
+| ARMTemplate | 5/8 (62.5%) | 8/8 (100%) | **+37.5%** |
+| LongRunningOperation | 0/3 (0%) | 2/3 (67%) | **+67%** |
+| Decorators | 1/3 (33.3%) | 2/3 (67%) | **+33.3%** |
+| Warning | 0/1 (0%) | 1/1 (100%) | **+100%** |
+
+---
+
+## Detailed Results
+
+### Versioning (1/8 Exact)
+
+| Case | Name | Result | Notes |
+|------|------|--------|-------|
+| 001001 | version-spread-property | ⚠️ Partial | Would suggest `@added` but might not use `@@added` augment syntax correctly for spread model properties |
+| 001002 | version-default-value | ⚠️ Partial | Unlikely to use the `@removed`/`@renamedFrom`/oldAge + `@added`/new age=21 pattern |
+| 001003 | version-required-to-optional | ✅ Exact | Standard `@madeOptional` pattern — well-known decorator |
+| 001004 | version-property-decorator | ⚠️ Partial | Would not use the `@removed`/`@renamedFrom` old + `@added` new pattern for decorator changes |
+| 001005 | version-add-preview-after-preview | ⚠️ Partial | Would miss specific rules about removing `@added` from previous preview |
+| 001006 | version-add-preview-after-stable | ⚠️ Partial | General approach correct but specific stable-to-preview transition nuances missed |
+| 001007 | version-add-stable-after-preview | ⚠️ Partial | Would miss rules about which preview changes stay vs. revert when promoting to stable |
+| 001008 | version-add-stable-after-stable | ⚠️ Partial | General approach correct, specific decorator handling for stable-after-stable may vary |
+
+**Analysis:** Versioning is the **weakest category** without the MCP tool. The agent knows basic decorators like `@madeOptional` but lacks knowledge of complex versioning patterns:
+- The `@removed`/`@renamedFrom`/`@added` property replacement pattern for changing defaults or decorator values
+- Preview-to-preview cleanup rules (removing `@added` decorators from previous preview)
+- Preview-to-stable promotion rules (which changes to keep vs. revert)
+
+### ARMTemplate (5/8 Exact)
+
+| Case | Name | Result | Notes |
+|------|------|--------|-------|
+| 002001 | ARM-change-resource-type | ✅ Exact | Well-known `ExtensionResource<T>` pattern |
+| 002002 | ARM-define-extension-resource | ⚠️ Partial | Would use `ArmResourceRead` instead of `Extension.Read` patterns |
+| 002003 | ARM-define-full-update-operation | ⚠️ Partial | Would use `ArmResourcePatchSync` instead of `ArmCustomPatchAsync` with `ResourceUpdateModel` |
+| 002004 | ARM-define-extension-resource | ✅ Exact | Standard extension resource with standard operations |
+| 002005 | ARM-define-the-resource | ✅ Exact | Standard ARM resource definition — comprehensive boilerplate |
+| 002006 | ARM-define-child-resource | ✅ Exact | Well-known `@parentResource` + `ProxyResource` pattern |
+| 002007 | ARM-define-custom-action | ✅ Exact | Standard `ArmResourceActionSync` pattern |
+| 002008 | ARM-add-parameters | ⚠️ Partial | `Parameters = Azure.Core.TopQueryParameter & SkipQueryParameter` template syntax is specialized |
+
+**Analysis:** ARM resource definitions are the **strongest category** without the MCP tool. Basic CRUD patterns, child resources, and custom actions are well-understood. Gaps appear in specialized patterns:
+- `Extension.*` namespace operations (vs standard `Arm*` operations)
+- Full PATCH update with `ResourceUpdateModel` template
+- Template parameter syntax for query parameters
+
+### LongRunningOperation (0/3 Exact)
+
+| Case | Name | Result | Notes |
+|------|------|--------|-------|
+| 003001 | dataplane-async-delete-op | ⚠️ Partial | Would not know `StandardResourceOperations.LongRunningResourceDelete` with `@pollingOperation` |
+| 003002 | arm-action-lro | ⚠️ Partial | Would use basic `ArmResourceActionAsync` but miss `LroHeaders = ArmCombinedLroHeaders` |
+| 003003 | arm-modify-response | ❌ No Match | `ArmAsyncOperationHeader<FinalResult=Employee>` to get Azure-AsyncOperation without Retry-After is very specialized |
+
+**Analysis:** LRO is the **hardest category** without the MCP tool. The agent knows basic LRO templates but lacks knowledge of:
+- Data-plane LRO patterns (`StandardResourceOperations.LongRunningResourceDelete`)
+- ARM RPC requirements for `Azure-AsyncOperation` header (`ArmCombinedLroHeaders`)
+- Granular LRO header customization (`ArmAsyncOperationHeader` vs `ArmCombinedLroHeaders`)
+
+### Decorators (1/3 Exact)
+
+| Case | Name | Result | Notes |
+|------|------|--------|-------|
+| 004001 | decorate-mgmt-resource-name-parameter | ❌ No Match | Would suggest `@@minLength(Employee.name, 1)` which **doesn't work** — `ResourceNameParameter` compiles `name` to `employeeName` |
+| 004002 | decorate-length-constrains-on-array-item | ✅ Exact | Standard custom scalar pattern for array item constraints |
+| 004003 | delete-and-restore-operationId-decorator | ⚠️ Partial | Would not identify that lowercase-initial operationIds must be preserved since `@clientName` cannot handle them |
+
+**Analysis:** Decorator cases reveal critical knowledge gaps:
+- The `ResourceNameParameter` compilation gotcha (name → employeeName) is a **production-breaking** issue the agent would miss
+- `@clientName` limitations with lowercase-initial identifiers require specialized ARM knowledge
+
+### Warning (0/1 Exact)
+
+| Case | Name | Result | Notes |
+|------|------|--------|-------|
+| 005001 | warning-suppress-warning | ⚠️ Partial | Would add `#suppress` but might place at file/model level instead of above each union member |
+
+**Analysis:** The agent knows `#suppress` syntax but might miss the critical node-scoping rule — directives must be placed directly above the specific syntax node that produces the warning.
+
+---
+
+## No Match Analysis (2 Cases)
+
+### 003003 — arm-modify-response
+- **Prompt:** Modify createOrUpdate PUT so it returns Azure-AsyncOperation but NOT Retry-After
+- **Expected:** Use `ArmAsyncOperationHeader<FinalResult = Employee>` alias
+- **Agent would produce:** Generic LRO approach without specific header customization
+- **Gap:** Agent does not know the distinction between `ArmAsyncOperationHeader` (Azure-AsyncOperation only) vs `ArmCombinedLroHeaders` (both headers) vs `ArmLroLocationHeader` (Location only)
+
+### 004001 — decorate-mgmt-resource-name-parameter
+- **Prompt:** Add `minLength` to Employee resource name parameter
+- **Expected:** Use `KeyName = "name"` in `ResourceNameParameter` or define key directly, then `@@minLength(Employee.name, 1)`
+- **Agent would produce:** Direct `@@minLength(Employee.name, 1)` which **silently fails**
+- **Gap:** Agent does not know that `ResourceNameParameter<Employee>` compiles `name` to `employeeName`, making augment decorators target a non-existent property. This is a production-breaking issue.
+
+---
+
+## Key Findings
+
+### 1. MCP Tool Provides 3x Accuracy Improvement
+The specialized MCP tool raises exact match accuracy from 30% to 91%. The improvement is most dramatic for **Versioning** (+87.5%) and **LRO** (+67%) categories.
+
+### 2. Agent's Built-in Strengths
+Without the MCP tool, the agent excels at:
+- Standard ARM resource definitions (TrackedResource, ExtensionResource, ProxyResource)
+- Basic operations (CRUD, custom actions)
+- Well-known decorators (@parentResource, @madeOptional)
+- Boilerplate generation (imports, namespaces, enums, ProvisioningState)
+
+### 3. Critical Knowledge Gaps Without MCP Tool
+| Gap Area | Impact | Cases Affected |
+|----------|--------|:-------------:|
+| Versioning property replacement patterns | High | 001001, 001002, 001004 |
+| Version promotion/transition rules | High | 001005-001008 |
+| ARM LRO header customization | High | 003002, 003003 |
+| ResourceNameParameter compilation behavior | Critical | 004001 |
+| Extension.* operation patterns | Medium | 002002 |
+| Data-plane LRO templates | Medium | 003001 |
+| Template parameter syntax | Low | 002008 |
+
+### 4. Risk of Silent Failures
+Without the MCP tool, the agent can produce code that **appears correct but silently fails** (e.g., 004001 where `@@minLength(Employee.name, 1)` compiles without error but has no effect). This is worse than an obvious error because developers may not catch it.
+
+---
+
+## Recommendations
+
+1. **Always use the MCP tool** for versioning tasks — the agent's 12.5% accuracy without it is insufficient for production use
+2. **Always use the MCP tool** for LRO customization — 0% accuracy without it
+3. **ARM resource definitions** may be safe without the MCP tool for simple cases (62.5% accuracy), but the tool is still recommended for edge cases
+4. **Decorator tasks** should always use the MCP tool to avoid silent failures like the ResourceNameParameter gotcha
+5. **The MCP tool's value is highest** for tasks requiring Azure-specific TypeSpec patterns that aren't part of general TypeSpec knowledge

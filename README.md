@@ -22,7 +22,11 @@ innerloop-typespec-authoring-benchmark/
 
 ## Case Summary
 
-- [2026-03-13 Copilot CLI (Claude Opus 4.6) Benchmark Report](benchmark-report.md) — 23 cases, 21 pass, 2 partial
+### Copilot CLI Execution Report
+
+| Date | Model | Total Cases | Pass | Partial | Fail | Report |
+|------|-------|:-----------:|:----:|:-------:|:----:|--------|
+| 2026-03-13 | Claude Opus 4.6 | 23 | 21 | 2 | 0 | [benchmark-report.md](benchmark-report.md) |
 
 ### Versioning (8 cases)
 

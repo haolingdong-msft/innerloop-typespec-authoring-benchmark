@@ -7,12 +7,15 @@ Add a new preview version `2025-05-04-preview` to my service widget resource man
 ### Input Context
 
 <https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Versioning/001005-version-add-preview-after-preview/tsp/main.tsp>
+<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Versioning/001005-version-add-preview-after-preview/tsp/employee.tsp>
 
 ```tsp
+//main.tsp
 import "@typespec/rest";
 import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
+import "./employee.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
@@ -37,6 +40,23 @@ enum Versions {
   @previewVersion
   v2024_10_01_preview: "2024-10-01-preview",
 }
+
+interface Operations extends Azure.ResourceManager.Operations {}
+
+//employee.tsp
+import "@typespec/rest";
+import "@typespec/http";
+import "@typespec/versioning";
+import "@azure-tools/typespec-azure-core";
+import "@azure-tools/typespec-azure-resource-manager";
+
+using TypeSpec.Rest;
+using TypeSpec.Http;
+using TypeSpec.Versioning;
+using Azure.Core;
+using Azure.ResourceManager;
+
+namespace Microsoft.Widget;
 
 /** A Widget Employee resource */
 model Employee is TrackedResource<EmployeeProperties> {
@@ -102,8 +122,6 @@ union ProvisioningState {
 
   string,
 }
-
-interface Operations extends Azure.ResourceManager.Operations {}
 
 @armResourceOperations
 interface Employees {
@@ -188,6 +206,14 @@ model EmployeeProperties {
   provisioningState?: ProvisioningState;
 }
 ```
+
+## Verify Plan
+1. The new preview version should be added to the Versions enum with the @previewVersion decorator, replacing the old preview version.
+2. The example folder should be renamed from the old preview version to the new one, and the api-version parameter in all example files should be updated accordingly.
+3. The age property that was added in the previous preview should be deleted along with its @added decorator.
+4. The oldAge property that was removed in the previous preview should be restored by removing the @removed decorator.
+5. The oldAge renamedFrom decorator should be removed and the property should be reverted to its original name.
+6. The workLocation property should have its versioning decorator updated to reference the new preview version.
 
 ## Reference
 - https://azure.github.io/typespec-azure/docs/howtos/versioning/arm/02-preview-after-preview/#the-general-case-one-or-more-stable-versions-exist

@@ -7,41 +7,22 @@ add @minLength(3) @maxLength(10) constrains for any item of assets array
 
 ### Input context
 
-<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Decorators/004001-decorate-mgmt-resource-name-parameter/tsp/main.tsp>
+<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Decorators/004001-decorate-mgmt-resource-name-parameter/tsp/employee.tsp>
 
 ```tsp
-import "@typespec/http";
 import "@typespec/rest";
-import "@typespec/versioning";
+import "@typespec/http";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 
-using Http;
-using Rest;
-using Versioning;
+using TypeSpec.Rest;
+using TypeSpec.Http;
 using Azure.Core;
 using Azure.ResourceManager;
 
-/** Contoso Resource Provider management API. */
-@armProviderNamespace
-@service(#{ title: "ContosoProviderHubClient" })
-@versioned(Versions)
-namespace Microsoft.ContosoProviderHub;
+namespace Microsoft.Widget;
 
-/** Contoso API versions */
-enum Versions {
-  /** 2021-10-01-preview version */
-  // @useDependency(Azure.ResourceManager.Versions.v1_0_Preview_1)
-  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-  `2021-10-01-preview`,
-
-  /** 2021-10-01-preview version */
-  // @useDependency(Azure.ResourceManager.Versions.v1_0_Preview_1)
-  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-  `2024-10-01-preview`,
-}
-
-/** A ContosoProviderHub resource */
+/** Employee resource */
 model Employee is TrackedResource<EmployeeProperties> {
   ...ResourceNameParameter<Employee>;
 }
@@ -108,8 +89,6 @@ model MoveResponse {
   movingStatus: string;
 }
 
-interface Operations extends Azure.ResourceManager.Operations {}
-
 @armResourceOperations
 interface Employees {
   get is ArmResourceRead<Employee>;
@@ -167,6 +146,10 @@ model EmployeeProperties {
   /** The assets belong to the employee. */
   assets: AssetName[];
 }
+
+## Verify Plan
+1. A custom scalar type should be defined extending string with minLength and maxLength constraints applied.
+2. The assets array property should use the custom scalar type as its element type instead of plain string.
 
 ## Real case reference
 

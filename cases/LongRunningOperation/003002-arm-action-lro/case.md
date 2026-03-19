@@ -104,4 +104,9 @@ interface Employees {
 }
 ```
 
+## Verify Plan
+1. A new async move action should be added to the Employees interface using the ARM resource action async template.
+2. The move action should accept MoveRequest as input and return MoveResponse as output.
+3. The move action should include combined LRO headers with the final result type and a retry-after header, as required by the resource provider contract for async operations.
+
 According to RPC, https://github.com/cloud-and-ai-microsoft/resource-provider-contract/blob/master/v1.0/async-api-reference.md#call-action-post-asynchronously, new Resource Provider namespace implementations must include the Azure-AsyncOperation header in their async responses. So `LroHeaders = ArmCombinedLroHeaders<FinalResult = MoveResponse>` should be added.

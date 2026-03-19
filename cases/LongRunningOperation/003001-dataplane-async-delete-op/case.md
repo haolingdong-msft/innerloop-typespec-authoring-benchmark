@@ -220,11 +220,7 @@ namespace StacItems {
 
 ```
 
-<<<<<<<< HEAD:cases/LongRunningOperation/003001-dataplane-async-delete-op/case.md
 ## Expected output code
-========
-## Expected response
->>>>>>>> origin/main:cases/LongRunningOperation/003001-async-delete-op/case.md
 
 ```tsp
 alias StandardResourceOperations = Azure.Core.Foundations.StandardResourceOperations;
@@ -237,5 +233,10 @@ namespace StacItems {
   deleteAsync is StandardResourceOperations.LongRunningResourceDelete<StacItem>;
 }
 ```
+
+## Verify Plan
+1. A new async delete operation should be added to the StacItems namespace.
+2. The delete operation should use the long-running resource delete pattern from Azure Core standard resource operations.
+3. The delete operation should be linked to the existing polling operation for status monitoring.
 
 ## Case reference

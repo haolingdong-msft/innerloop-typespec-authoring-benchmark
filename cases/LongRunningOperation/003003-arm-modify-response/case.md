@@ -61,21 +61,6 @@ union ProvisioningState {
   string,
 }
 
-/** Employee move request */
-model MoveRequest {
-  /** The moving from location */
-  from: string;
-
-  /** The moving to location */
-  to: string;
-}
-
-/** Employee move response */
-model MoveResponse {
-  /** The status of the move */
-  movingStatus: string;
-}
-
 @armResourceOperations
 interface Employees {
   get is ArmResourceRead<Employee>;
@@ -107,4 +92,9 @@ interface Employees {
   listBySubscription is ArmListBySubscription<Employee>;
 }
 ```
+
+## Verify Plan
+1. A custom LRO headers alias should be defined that includes only the Azure-AsyncOperation header without the Retry-After header.
+2. The createOrUpdate operation should be updated to use the custom LRO headers alias via the LroHeaders parameter.
+3. All other operations in the Employees interface should remain unchanged.
 

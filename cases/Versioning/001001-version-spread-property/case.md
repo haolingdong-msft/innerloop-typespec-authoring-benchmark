@@ -7,46 +7,22 @@ I added `...Azure.ResourceManager.ManagedServiceIdentityProperty;` which update 
 
 ### Input context
 
-<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Versioning/001001-version-spread-property/tsp/main.tsp>
+<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Versioning/001001-version-spread-property/tsp/employee.tsp>
 
 ```tsp
-import "@typespec/http";
 import "@typespec/rest";
-import "@typespec/versioning";
+import "@typespec/http";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 
-using Http;
-using Rest;
-using Versioning;
+using TypeSpec.Rest;
+using TypeSpec.Http;
 using Azure.Core;
 using Azure.ResourceManager;
 
-/** Contoso Resource Provider management API. */
-@armProviderNamespace
-@service(#{ title: "ContosoProviderHubClient" })
-@versioned(Versions)
-namespace Microsoft.ContosoProviderHub;
+namespace Microsoft.Widget;
 
-/** Contoso API versions */
-enum Versions {
-  /** 2021-10-01-preview version */
-  // @useDependency(Azure.ResourceManager.Versions.v1_0_Preview_1)
-  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-  `2021-10-01-preview`,
-
-  /** 2021-10-01-preview version */
-  // @useDependency(Azure.ResourceManager.Versions.v1_0_Preview_1)
-  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-  `2024-10-01-preview`,
-
-  /** 2025-05-04-preview version */
-  // @useDependency(Azure.ResourceManager.Versions.v1_0_Preview_1)
-  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-  `2025-05-04-preview`,
-}
-
-/** A ContosoProviderHub resource */
+/** Employee resource */
 model Employee is TrackedResource<EmployeeProperties> {
   ...ResourceNameParameter<Employee>;
   ...ManagedServiceIdentityProperty;
@@ -111,8 +87,6 @@ model MoveResponse {
   movingStatus: string;
 }
 
-interface Operations extends Azure.ResourceManager.Operations {}
-
 @armResourceOperations
 interface Employees {
   get is ArmResourceRead<Employee>;
@@ -150,6 +124,10 @@ model Employee is TrackedResource<EmployeeProperties> {
 @@added(Employee.identity, Versions.`2025-05-04-preview`);
 
 ```
+
+## Verify Plan
+1. The spread model ManagedServiceIdentityProperty should remain on the Employee model.
+2. An augment decorator should be added to mark the identity property as only available starting from the new preview version.
 
 ![alt text](image-1.png)
 

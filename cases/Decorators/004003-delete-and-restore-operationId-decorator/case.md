@@ -169,3 +169,7 @@ interface VpnServerConfigurationPolicyGroups {
 ```
 
 OperationId 'configurationPolicyGroups_ListByVpnServerConfiguration' must be preserved: starts with lowercase letter which cannot be handled by @clientName alone, requiring explicit @operationId to maintain backward compatibility with existing OpenAPI spec
+
+## Verify Plan
+1. All @operationId decorators and their associated #suppress "@azure-tools/typespec-azure-core/no-openapi" comments should be removed from operations.
+2. OperationIds that do not follow the standard naming convention (i.e., do not contain underscores or begin with a lowercase letter) should be restored with their @operationId decorator and #suppress comment, as they cannot be automatically inferred by the framework.

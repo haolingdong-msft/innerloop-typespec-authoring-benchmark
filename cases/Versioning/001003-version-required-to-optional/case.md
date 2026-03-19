@@ -6,39 +6,24 @@ change the property age of EmployeeProperties from required to optional for new 
 
 ### Input Context
 
-<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Versioning/001003-version-required-to-optional/tsp/main.tsp>
+<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Versioning/001003-version-required-to-optional/tsp/employee.tsp>
 
 ```tsp
 import "@typespec/rest";
-import "@typespec/versioning";
+import "@typespec/http";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 
-using TypeSpec.Http;
 using TypeSpec.Rest;
-using TypeSpec.Versioning;
+using TypeSpec.Http;
 using Azure.Core;
 using Azure.ResourceManager;
 
-/** Microsoft.Widget Resource Provider management API. */
-@armProviderNamespace
-@service(#{ title: "Widget" })
-@versioned(Microsoft.Widget.Versions)
 namespace Microsoft.Widget;
 
-/** The available API versions. */
-enum Versions {
-  /** 2021-10-01-preview version */
-  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-  v2021_10_01_preview: "2021-10-01-preview",
-
-  /** 2021-11-01 version */
-  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-  v2021_11_01: "2021-11-01",
-
-  /** 2025-11-01 version */
-  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-  v2025_11_01: "2025-11-01",
+/** Employee resource */
+model Employee is TrackedResource<EmployeeProperties> {
+  ...ResourceNameParameter<Employee>;
 }
 
 /** Employee properties */
@@ -78,6 +63,15 @@ union ProvisioningState {
   string,
 }
 
+@armResourceOperations
+interface Employees {
+  get is ArmResourceRead<Employee>;
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<Employee>;
+  update is ArmResourcePatchSync<Employee, EmployeeProperties>;
+  delete is ArmResourceDeleteWithoutOkAsync<Employee>;
+  listByResourceGroup is ArmResourceListByParent<Employee>;
+  listBySubscription is ArmListBySubscription<Employee>;
+}
 ```
 
 ## answer
@@ -101,3 +95,6 @@ model EmployeeProperties {
   provisioningState?: ProvisioningState;
 }
 ```
+
+## Verify Plan
+1. The age property should be annotated with a decorator indicating it was made optional starting from the new preview version.

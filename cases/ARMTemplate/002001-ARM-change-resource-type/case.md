@@ -3,50 +3,26 @@
 
 ## Prompt
 
-change resource Employee as extnsion resource
+change resource Employee as extension resource
 
 ### Input context
 
-<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/tree/main/cases/Arm%20Resource%20Manager(ARM)%20Template/002001-ARM-change-resource-type/tsp/main.tsp>
+<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/tree/main/cases/ARMTemplate/002001-ARM-change-resource-type/tsp/employee.tsp>
 
 ```tsp
-import "@typespec/http";
 import "@typespec/rest";
-import "@typespec/versioning";
+import "@typespec/http";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 
-using Http;
-using Rest;
-using Versioning;
+using TypeSpec.Rest;
+using TypeSpec.Http;
 using Azure.Core;
 using Azure.ResourceManager;
 
-/** Contoso Resource Provider management API. */
-@armProviderNamespace
-@service(#{ title: "ContosoProviderHubClient" })
-@versioned(Versions)
-namespace Microsoft.ContosoProviderHub;
+namespace Microsoft.Widget;
 
-/** Contoso API versions */
-enum Versions {
-  /** 2021-10-01-preview version */
-  // @useDependency(Azure.ResourceManager.Versions.v1_0_Preview_1)
-  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-  `2021-10-01-preview`,
-
-  /** 2021-10-01-preview version */
-  // @useDependency(Azure.ResourceManager.Versions.v1_0_Preview_1)
-  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-  `2024-10-01-preview`,
-
-  /** 2025-05-04-preview version */
-  // @useDependency(Azure.ResourceManager.Versions.v1_0_Preview_1)
-  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-  `2025-05-04-preview`,
-}
-
-/** A ContosoProviderHub resource */
+/** Employee resource */
 model Employee is TrackedResource<EmployeeProperties> {
   ...ResourceNameParameter<Employee>;
 }
@@ -68,13 +44,10 @@ model EmployeeProperties {
   provisioningState?: ProvisioningState;
 }
 
-/** The provisioning state of a resource. */
+/** The resource provisioning state. */
 @lroStatus
 union ProvisioningState {
-  string,
-
-  /** The resource create request has been accepted */
-  Accepted: "Accepted",
+  ResourceProvisioningState,
 
   /** The resource is being provisioned */
   Provisioning: "Provisioning",
@@ -82,20 +55,14 @@ union ProvisioningState {
   /** The resource is updating */
   Updating: "Updating",
 
-  /** Resource has been created. */
-  Succeeded: "Succeeded",
-
-  /** Resource creation failed. */
-  Failed: "Failed",
-
-  /** Resource creation was canceled. */
-  Canceled: "Canceled",
-
   /** The resource is being deleted */
   Deleting: "Deleting",
-}
 
-interface Operations extends Azure.ResourceManager.Operations {}
+  /** The resource create request has been accepted */
+  Accepted: "Accepted",
+
+  string,
+}
 
 @armResourceOperations
 interface Employees {
@@ -117,16 +84,30 @@ model Employee is ExtensionResource<EmployeeProperties> {
   ...ResourceNameParameter<Employee>;
 }
 
-@armResourceOperations
-interface Employees {
-  get is ArmResourceRead<Employee>;
-  createOrUpdate is ArmResourceCreateOrReplaceAsync<Employee>;
-  update is ArmResourcePatchSync<Employee, EmployeeProperties>;
-  delete is ArmResourceDeleteWithoutOkAsync<Employee>;
-  list is ArmResourceListByParent<Employee>;
+interface EmployeeOps<Scope extends Azure.ResourceManager.Foundations.SimpleResource> {
+  get is Extension.Read<Scope, Employee>;
+  createOrUpdate is Extension.CreateOrReplaceAsync<Scope, Employee>;
+  update is Extension.CustomPatchSync<
+    Scope,
+    Employee,
+    Azure.ResourceManager.Foundations.ResourceUpdateModel<
+      Employee,
+      EmployeeProperties
+    >
+  >;
+  delete is Extension.DeleteWithoutOkAsync<Scope, Employee>;
+  list is Extension.ListByTarget<Scope, Employee>;
 }
 
+@armResourceOperations
+interface Employees extends EmployeeOps<Extension.ScopeParameter> {}
 ```
+
+## Verify Plan
+1. The Employee model should use ExtensionResource as its base type instead of TrackedResource.
+2. All CRUD operations should use the Extension resource operation templates instead of the tracked resource templates.
+3. The original separate list-by-resource-group and list-by-subscription operations should be consolidated into a single list operation using the extension list template.
+4. A scope-parameterized interface should be defined to allow the extension resource to be scoped to any parent resource.
 
 # Case reference
 

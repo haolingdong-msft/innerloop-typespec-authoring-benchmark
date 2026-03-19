@@ -7,41 +7,22 @@ add minLength decorator to set the minLength 1 for resource name parameter of Em
 
 ### Input context
 
-<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Decorators/004001-decorate-mgmt-resource-name-parameter/tsp/main.tsp>
+<https://github.com/haolingdong-msft/innerloop-typespec-authoring-benchmark/blob/main/cases/Decorators/004001-decorate-mgmt-resource-name-parameter/tsp/employee.tsp>
 
 ```tsp
-import "@typespec/http";
 import "@typespec/rest";
-import "@typespec/versioning";
+import "@typespec/http";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 
-using Http;
-using Rest;
-using Versioning;
+using TypeSpec.Rest;
+using TypeSpec.Http;
 using Azure.Core;
 using Azure.ResourceManager;
 
-/** Contoso Resource Provider management API. */
-@armProviderNamespace
-@service(#{ title: "ContosoProviderHubClient" })
-@versioned(Versions)
-namespace Microsoft.ContosoProviderHub;
+namespace Microsoft.Widget;
 
-/** Contoso API versions */
-enum Versions {
-  /** 2021-10-01-preview version */
-  // @useDependency(Azure.ResourceManager.Versions.v1_0_Preview_1)
-  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-  `2021-10-01-preview`,
-
-  /** 2021-10-01-preview version */
-  // @useDependency(Azure.ResourceManager.Versions.v1_0_Preview_1)
-  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-  `2024-10-01-preview`,
-}
-
-/** A ContosoProviderHub resource */
+/** Employee resource */
 model Employee is TrackedResource<EmployeeProperties> {
   ...ResourceNameParameter<Employee>;
 }
@@ -61,6 +42,26 @@ model EmployeeProperties {
   /** The status of the last operation. */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
+}
+
+/** The resource provisioning state. */
+@lroStatus
+union ProvisioningState {
+  ResourceProvisioningState,
+
+  /** The resource is being provisioned */
+  Provisioning: "Provisioning",
+
+  /** The resource is updating */
+  Updating: "Updating",
+
+  /** The resource is being deleted */
+  Deleting: "Deleting",
+
+  /** The resource create request has been accepted */
+  Accepted: "Accepted",
+
+  string,
 }
 
 /** The provisioning state of a resource. */
@@ -104,8 +105,6 @@ model MoveResponse {
   /** The status of the move */
   movingStatus: string;
 }
-
-interface Operations extends Azure.ResourceManager.Operations {}
 
 @armResourceOperations
 interface Employees {
@@ -164,6 +163,10 @@ model Employee is TrackedResource<EmployeeProperties> {
 ```
 
 ![alt text](image-1.png)
+
+## Verify Plan
+1. The resource name parameter should have a minLength constraint of 1 applied to it.
+2. The approach should handle the fact that ResourceNameParameter renames the property after compilation, either by using a custom key name or by defining the resource name property directly.
 
 ## Real case reference
 

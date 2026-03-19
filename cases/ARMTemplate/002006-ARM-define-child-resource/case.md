@@ -135,7 +135,7 @@ interface Addresses {
 ## Verify Plan
 1. A new file should be created for the Address resource definition.
 2. The AddressResource model should be defined as a proxy resource with a parent-child relationship to the Employee resource.
-3. The Address properties model should include street address fields, city, state, postal code, country, and a read-only provisioning state.
+3. The AddressProperties model should include street address fields, city, state, postal code, country, and a read-only provisioning state.
 4. The Addresses interface should include standard CRUD operations and a list-by-parent operation.
 
 ## Case reference

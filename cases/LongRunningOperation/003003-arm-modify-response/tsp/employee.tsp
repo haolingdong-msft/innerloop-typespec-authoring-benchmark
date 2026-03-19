@@ -1,12 +1,3 @@
-# CASE 003003-arm-modify-response
-
-## prompt
-
-Modify the LRO createOrUpdate PUT operation in interface employees so that it returns Azure-AsyncOperation header but NOT Retry-After header in the 201 response. The operation currently uses ArmResourceCreateOrReplaceAsync<Employee> template.
-
-### Input code
-
-```ts
 import "@typespec/rest";
 import "@typespec/http";
 import "@azure-tools/typespec-azure-core";
@@ -70,31 +61,3 @@ interface Employees {
   listByResourceGroup is ArmResourceListByParent<Employee>;
   listBySubscription is ArmListBySubscription<Employee>;
 }
-
-```
-
-### Expected output code
-
-```tsp
-/** Custom LRO headers for Employee createOrUpdate - Azure-AsyncOperation only, no Retry-After */
-alias EmployeeCreateOrReplaceLroHeaders = ArmAsyncOperationHeader<FinalResult = Employee>
-
-@armResourceOperations
-interface Employees {
-  get is ArmResourceRead<Employee>;
-  createOrUpdate is ArmResourceCreateOrReplaceAsync<
-    Employee,
-    LroHeaders = EmployeeCreateOrReplaceLroHeaders
-  >;
-  update is ArmResourcePatchSync<Employee, EmployeeProperties>;
-  delete is ArmResourceDeleteWithoutOkAsync<Employee>;
-  listByResourceGroup is ArmResourceListByParent<Employee>;
-  listBySubscription is ArmListBySubscription<Employee>;
-}
-```
-
-## Verify Plan
-1. A custom LRO headers alias should be defined that includes only the Azure-AsyncOperation header without the Retry-After header.
-2. The createOrUpdate operation should be updated to use the custom LRO headers alias via the LroHeaders parameter.
-3. All other operations in the Employees interface should remain unchanged.
-

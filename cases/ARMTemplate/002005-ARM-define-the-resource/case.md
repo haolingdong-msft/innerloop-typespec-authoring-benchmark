@@ -95,7 +95,7 @@ interface Employees {
 ## Verify Plan
 1. A new file should be created for the Employee resource definition.
 2. The Employee model should be defined as a tracked resource under the Microsoft.Widget namespace.
-3. The Employee properties model should include age, city, profile, and a read-only provisioning state.
+3. The EmployeeProperties model should include age, city, profile, and a read-only provisioning state.
 4. A provisioning state union type should be defined with standard ARM states plus custom states.
 5. The Employees interface should include standard CRUD operations and list operations by both resource group and subscription.
 

@@ -1,12 +1,3 @@
-# CASE 003002-arm-action-lro
-
-## prompt
-
-Add a move async operation to move employee, operation's request is MoveRequest, response is MoveResponse
-
-### Input code
-
-```ts
 import "@typespec/rest";
 import "@typespec/http";
 import "@azure-tools/typespec-azure-core";
@@ -85,28 +76,3 @@ interface Employees {
   listByResourceGroup is ArmResourceListByParent<Employee>;
   listBySubscription is ArmListBySubscription<Employee>;
 }
-
-```
-
-### Expected output code
-
-```ts
-@armResourceOperations
-interface Employees {
-  get is ArmResourceRead<Employee>;
-  createOrUpdate is ArmResourceCreateOrReplaceAsync<Employee>;
-  update is ArmResourcePatchSync<Employee, EmployeeProperties>;
-  delete is ArmResourceDeleteWithoutOkAsync<Employee>;
-  listByResourceGroup is ArmResourceListByParent<Employee>;
-  listBySubscription is ArmListBySubscription<Employee>;
-  move is ArmResourceActionAsync<Employee, MoveRequest, MoveResponse, LroHeaders = ArmCombinedLroHeaders<FinalResult = MoveResponse> &
-      Azure.Core.Foundations.RetryAfterHeader>;
-}
-```
-
-## Verify Plan
-1. A new async move action should be added to the Employees interface using the ARM resource action async template.
-2. The move action should accept MoveRequest as input and return MoveResponse as output.
-3. The move action should include combined LRO headers with the final result type and a retry-after header, as required by the resource provider contract for async operations.
-
-According to RPC, https://github.com/cloud-and-ai-microsoft/resource-provider-contract/blob/master/v1.0/async-api-reference.md#call-action-post-asynchronously, new Resource Provider namespace implementations must include the Azure-AsyncOperation header in their async responses. So `LroHeaders = ArmCombinedLroHeaders<FinalResult = MoveResponse>` should be added.

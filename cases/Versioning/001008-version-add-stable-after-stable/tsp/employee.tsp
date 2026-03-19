@@ -42,7 +42,17 @@ model EmployeeProperties {
   /** The status of the last operation. */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
+
+  /** The assets belong to the employee. */
+  @typeChangedFrom(Versions.v2024_10_01, string[])
+  assets: AssetItem[];
 }
+
+/** Constrained asset item. */
+@added(Versions.v2024_10_01)
+@minLength(3)
+@maxLength(10)
+scalar AssetItem extends string;
 
 /** Work location details */
 @added(Versions.v2024_10_01)
